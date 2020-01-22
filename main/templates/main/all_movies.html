@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Filmy
+
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<h1>Filmy</h1>
+<br/>
+<a href="{% url 'create_movie' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for movie in movies %}
+<div class="card_movie">
+  <div class="row no-gutters">
+    <div class="col-lg-4">
+      <img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+    </div>
+    <div class="col-lg-6">
+        <h5 class="card-title">{{ movie.title_year}}</h5>
+        <p class="card-text">{{ movie.summary }}</p>
+        <p class="card-text"><small class="text-muted">Dodał {{movie.user}}</small></p>
+
+      </div>
+    <div class="col-lg-2">
+      <a href="{% url 'update_movie' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
+      <a href="{% url 'delete_movie' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

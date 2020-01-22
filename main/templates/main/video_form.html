@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Zapisz
+{% endblock %}
+
+{% block content%}
+<div class="card_form" >
+    <div class="card-body">
+        <h5 class="card-title">Zapisz film</h5>
+        <form role="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a href="{% url 'all_movies' %}">Cofnij</a>
+            <button type="submit" class="btn btn-success">Zapisz</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

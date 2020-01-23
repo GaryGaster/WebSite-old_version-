@@ -20,7 +20,7 @@ def create_movie(request):
             movie.save()
             return redirect(all_movies)
         else:
-            return render(request, 'main/video_form.html', {'error': 'Tytuł rok oraz zdjęcie filmu są konieczne !'})
+            return render(request, 'main/video_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
     else:
         return render(request, 'main/video_form.html', {'form': form})
 
@@ -53,3 +53,13 @@ def delete_movie(request, id):
 
     else:
         return render(request, 'main/refusal.html')
+
+def upvote(request, movie_id):
+    if request.method == "POST":
+        product = get_object_or_404(Movie, pk=movie_id)
+        if request.user not in product.voters.all():
+            product.votes_total += 1
+            product.voters.add(request.user)
+            product.save()
+
+        return redirect('all_movies')

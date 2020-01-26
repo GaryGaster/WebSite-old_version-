@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-from .views import all_movies, create_movie, update_movie, delete_movie, upvote
+from . import views
 
 urlpatterns = [
-    path('', all_movies, name= 'all_movies'),
-    path('create_movie', create_movie, name= 'create_movie'),
-    path('update_movie/<int:id>/', update_movie, name= 'update_movie'),
-    path('delete_movie/<int:id>/', delete_movie, name= 'delete_movie'),
-    path('<int:movie_id>/upvote/', upvote, name='upvote'),
+    path('', views.all_movies, name= 'all_movies'),
+    path('create_movie', views.create_movie, name= 'create_movie'),
+    path('update_movie/<int:id>/',  views.update_movie, name= 'update_movie'),
+    path('delete_movie/<int:id>/',  views.delete_movie, name= 'delete_movie'),
+    path('<int:movie_id>/upvote/',  views.upvote, name='upvote'),
 ]

@@ -10,7 +10,7 @@ Seriale
 <br/>
 <h1>Seriale</h1>
 <br/>
-<a href="{% url 'create_serial' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+<a href="{% url 'serial_create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
 {% for serial in series %}
 <div class="card_serial">
     <div class="row no-gutters">
@@ -23,13 +23,13 @@ Seriale
             <p class="card-text"><small class="text-muted">Dodał {{serial.user}}</small></p>
         </div>
         <div class="col-lg-2">
-            <a href="{% url 'update_serial' serial.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'delete_serial' serial.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            <a href="{% url 'serial_update' serial.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'serial_delete' serial.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
         </div>
         <div class="col-lg-1">
             {% if serial.votes_total == 0 %}
             <a>
-                <a href="javascript:{document.getElementById('upvote_serial{{ serial.id }}').submit()}">
+                <a href="javascript:{document.getElementById('serial_upvote{{ serial.id }}').submit()}">
                     <i class="far fa-2x fa-heart"></i>
                 </a>
             </a>
@@ -38,7 +38,7 @@ Seriale
                 <i class="fas fa-2x fa-heart"> {{ serial.votes_total }}</i>
             </a>
             {% else %}
-            <a href="javascript:{document.getElementById('upvote_serial{{ serial.id }}').submit()}">
+            <a href="javascript:{document.getElementById('serial_upvote{{ serial.id }}').submit()}">
                 <i class="fas fa-2x fa-heart"> {{ serial.votes_total }}</i>
             </a>
             {% endif %}
@@ -46,7 +46,7 @@ Seriale
         </div>
     </div>
 
-    <form id="upvote_serial{{ serial.id }}" method="POST" action="{% url 'upvote_serial' serial.id %}">
+    <form id="serial_upvote{{ serial.id }}" method="POST" action="{% url 'serial_upvote' serial.id %}">
         {% csrf_token%}
         <input type="hidden">
     </form>

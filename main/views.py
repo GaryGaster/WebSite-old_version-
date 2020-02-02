@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import MovieForm, SerialForm
-from .models import Movie, Serial
+from .forms import MovieForm, SerialForm, AnimeForm
+from .models import Movie, Serial, Anime
 from django.contrib.auth.decorators import login_required
 
 
@@ -10,7 +10,7 @@ def all_movies(request):
     return render(request, 'main/all_movies.html', {'movies': movies})
 
 @login_required
-def create_movie(request):
+def movie_create(request):
     form = MovieForm(request.POST or None, request.FILES or None)
 
     if request.method == 'POST':
@@ -32,7 +32,7 @@ def create_movie(request):
 
 
 @login_required
-def update_movie(request, id):
+def movie_update(request, id):
     movie = get_object_or_404(Movie, pk=id)
     form = MovieForm(request.POST or None, request.FILES or None, instance=movie)
 
@@ -47,7 +47,7 @@ def update_movie(request, id):
         return render(request, 'main/refusal.html')
 
 @login_required
-def delete_movie(request, id):
+def movie_delete(request, id):
     movie = get_object_or_404(Movie, pk=id)
 
     if movie.user == request.user:
@@ -60,7 +60,7 @@ def delete_movie(request, id):
         return render(request, 'main/refusal.html')
 
 @login_required
-def upvote_movie(request, movie_id):
+def movie_upvote(request, movie_id):
     if request.method == "POST":
         movie = get_object_or_404(Movie, pk=movie_id)
         if request.user not in movie.voters.all():
@@ -70,7 +70,7 @@ def upvote_movie(request, movie_id):
 
         return redirect('all_movies')
 
-def detail_movie(request, movie_id):
+def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     return render(request, 'main/movie_detail.html', {"movie":movie})
 
@@ -81,7 +81,7 @@ def all_series(request):
     return render(request, 'main/all_series.html', {'series': series})
 
 @login_required
-def create_serial(request):
+def serial_create(request):
     form = SerialForm(request.POST or None, request.FILES or None)
 
     if request.method == 'POST':
@@ -103,7 +103,7 @@ def create_serial(request):
 
 
 @login_required
-def update_serial(request, id):
+def serial_update(request, id):
     serial = get_object_or_404(Serial, pk=id)
     form = SerialForm(request.POST or None, request.FILES or None, instance=serial)
 
@@ -118,7 +118,7 @@ def update_serial(request, id):
         return render(request, 'main/refusal.html')
 
 @login_required
-def delete_serial(request, id):
+def serial_delete(request, id):
     serial = get_object_or_404(Serial, pk=id)
 
     if serial.user == request.user:
@@ -131,7 +131,7 @@ def delete_serial(request, id):
         return render(request, 'main/refusal.html')
 
 @login_required
-def upvote_serial(request, serial_id):
+def serial_upvote(request, serial_id):
     if request.method == "POST":
         serial = get_object_or_404(Serial, pk=serial_id)
         if request.user not in serial.voters.all():
@@ -141,6 +141,79 @@ def upvote_serial(request, serial_id):
 
         return redirect('all_series')
 
-def detail_serial(request, serial_id):
+def serial_detail(request, serial_id):
     serial = get_object_or_404(Serial, pk=serial_id)
     return render(request, 'main/serial_detail.html', {"serial":serial})
+
+
+#Anime
+def all_animes(request):
+    animes = Anime.objects.all()
+    return render(request, 'main/all_animes.html', {'animes': animes})
+
+@login_required
+def anime_create(request):
+    form = AnimeForm(request.POST or None, request.FILES or None)
+
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
+            anime = Anime()
+            anime.title = request.POST['title']
+            anime.description = request.POST['description']
+            anime.year = request.POST['year']
+            anime.image = request.FILES['image']
+            anime.user = request.user
+            anime.save()
+            return redirect(all_animes)
+        else:
+            return render(request, 'main/anime_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
+    else:
+        return render(request, 'main/anime_form.html', {'form': form})
+
+
+
+
+@login_required
+def anime_update(request, id):
+    anime = get_object_or_404(Anime, pk=id)
+    form = AnimeForm(request.POST or None, request.FILES or None, instance=anime)
+
+    if anime.user == request.user:
+        if form.is_valid():
+            anime.save()
+            return redirect(all_animes)
+        else:
+            return render(request, 'main/anime_form.html', {'form': form})
+
+    else:
+        return render(request, 'main/refusal.html')
+
+@login_required
+def anime_delete(request, id):
+    anime = get_object_or_404(Anime, pk=id)
+
+    if anime.user == request.user:
+        if request.method == 'POST':
+            anime.delete()
+            return redirect(all_animes)
+        return render(request, 'main/anime_confirm.html', {'anime': anime})
+
+    else:
+        return render(request, 'main/refusal.html')
+
+@login_required
+def anime_upvote(request, anime_id):
+    if request.method == "POST":
+        anime = get_object_or_404(Anime, pk=anime_id)
+        if request.user not in anime.voters.all():
+            anime.votes_total += 1
+            anime.voters.add(request.user)
+            anime.save()
+
+        return redirect('all_animes')
+
+def anime_detail(request, anime_id):
+    anime = get_object_or_404(Anime, pk=anime_id)
+    return render(request, 'main/anime_detail.html', {"anime":anime})
+
+

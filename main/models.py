@@ -43,9 +43,9 @@ class Serial(Video):
     voters = models.ManyToManyField(User, related_name='serial_voters')
 
 
-# class Anime(Video):
-#     voters = models.ManyToManyField(User, related_name='anime_voters')
-#
+class Anime(Video):
+    voters = models.ManyToManyField(User, related_name='anime_voters')
+
 #
 # class Xvideo(Video):
 #     voters = models.ManyToManyField(User, related_name='xvideo_voters')

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Filmy
+
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<h1>Anime</h1>
+<br/>
+<a href="{% url 'anime_create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for anime in animes %}
+<div class="card_video">
+    <div class="row no-gutters">
+        <div class="col-lg-4">
+            <img src="/media/{{anime.image}}" class="card-img" alt="Wrzuć obrazek!">
+        </div>
+        <div class="col-lg-5">
+            <h5 class="card-title">{{ anime.title_year}}</h5>
+            <p class="card-text">{{ anime.summary }}</p>
+            <p class="card-text"><small class="text-muted">Dodał {{anime.user}}</small></p>
+        </div>
+        <div class="col-lg-2">
+            <a href="{% url 'anime_update' anime.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'anime_delete' anime.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+        </div>
+        <div class="col-lg-1">
+            {% if anime.votes_total == 0 %}
+            <a>
+                <a href="javascript:{document.getElementById('anime_upvote{{ anime.id }}').submit()}">
+                    <i class="far fa-2x fa-heart"></i>
+                </a>
+            </a>
+            {% elif user in anime.voters.all %}
+            <a>
+                <i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i>
+            </a>
+            {% else %}
+            <a href="javascript:{document.getElementById('anime_upvote{{ anime.id }}').submit()}">
+                <i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i>
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <form id="anime_upvote{{ anime.id }}" method="POST" action="{% url 'anime_upvote' anime.id %}">
+        {% csrf_token%}
+        <input type="hidden">
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

@@ -22,3 +22,6 @@ class SerialForm(VideoForm):
 
 class AnimeForm(VideoForm):
     pass
+
+class XvideoForm(VideoForm):
+    pass

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import MovieForm, SerialForm, AnimeForm
-from .models import Movie, Serial, Anime
+from .forms import MovieForm, SerialForm, AnimeForm, XvideoForm
+from .models import Movie, Serial, Anime, Xvideo
 from django.contrib.auth.decorators import login_required
 
 
@@ -215,5 +215,79 @@ def anime_upvote(request, anime_id):
 def anime_detail(request, anime_id):
     anime = get_object_or_404(Anime, pk=anime_id)
     return render(request, 'main/anime_detail.html', {"anime":anime})
+
+
+
+
+#Xvideos
+
+def all_xvideos(request):
+    xvideos = Xvideo.objects.all()
+    return render(request, 'main/all_xvideos.html', {'xvideos': xvideos})
+
+@login_required
+def xvideo_create(request):
+    form = XvideoForm(request.POST or None, request.FILES or None)
+
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
+            xvideo = Xvideo()
+            xvideo.title = request.POST['title']
+            xvideo.description = request.POST['description']
+            xvideo.year = request.POST['year']
+            xvideo.image = request.FILES['image']
+            xvideo.user = request.user
+            xvideo.save()
+            return redirect(all_xvideos)
+        else:
+            return render(request, 'main/xvideo_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
+    else:
+        return render(request, 'main/xvideo_form.html', {'form': form})
+
+
+
+
+@login_required
+def xvideo_update(request, id):
+    xvideo = get_object_or_404(Xvideo, pk=id)
+    form = XvideoForm(request.POST or None, request.FILES or None, instance=xvideo)
+
+    if xvideo.user == request.user:
+        if form.is_valid():
+            xvideo.save()
+            return redirect(all_xvideos)
+        else:
+            return render(request, 'main/xvideo_form.html', {'form': form})
+
+    else:
+        return render(request, 'main/refusal.html')
+
+@login_required
+def xvideo_delete(request, id):
+    xvideo = get_object_or_404(Xvideo, pk=id)
+
+    if xvideo.user == request.user:
+        if request.method == 'POST':
+            xvideo.delete()
+            return redirect(all_xvideos)
+        return render(request, 'main/xvideo_confirm.html', {'xvideo': xvideo})
+
+    else:
+        return render(request, 'main/refusal.html')
+
+@login_required
+def xvideo_upvote(request, xvideo_id):
+    if request.method == "POST":
+        xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
+        if request.user not in xvideo.voters.all():
+            xvideo.votes_total += 1
+            xvideo.voters.add(request.user)
+            xvideo.save()
+
+        return redirect('all_xvideos')
+
+def xvideo_detail(request, xvideo_id):
+    xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
+    return render(request, 'main/xvideo_detail.html', {"xvideo":xvideo})
 
 

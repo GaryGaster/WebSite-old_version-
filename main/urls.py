@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('movie/', views.all_movies, name= 'all_movies'),
+    path('movies/', views.all_movies, name= 'all_movies'),
     path('movie_create', views.movie_create, name= 'movie_create'),
     path('movie_update/<int:id>/',  views.movie_update, name= 'movie_update'),
     path('movie_delete/<int:id>/',  views.movie_delete, name= 'movie_delete'),
@@ -19,22 +19,24 @@ urlpatterns = [
     path('upvote_serial/<int:serial_id>/', views.serial_upvote, name='serial_upvote'),
 
     #Anime
-    path('anime/', views.all_animes, name= 'all_animes'),
+    path('animes/', views.all_animes, name= 'all_animes'),
     path('anime_create', views.anime_create, name= 'anime_create'),
     path('anime_update/<int:id>/',  views.anime_update, name= 'anime_update'),
     path('anime_delete/<int:id>/',  views.anime_delete, name= 'anime_delete'),
     path('anime/<int:anime_id>/',  views.anime_detail, name='anime_detail'),
     path('anime_upvote/<int:anime_id>/',  views.anime_upvote, name='anime_upvote'),
-    #
-    # #Xvideo
-    # path('', views.all_movies, name= 'all_movies'),
-    # path('create_movie', views.create_movie, name= 'create_movie'),
-    # path('update_movie/<int:id>/',  views.update_movie, name= 'update_movie'),
-    # path('delete_movie/<int:id>/',  views.delete_movie, name= 'delete_movie'),
-    # path('<int:movie_id>/',  views.detail, name='detail'),
-    # path('<int:movie_id>/upvote_xvideo/',  views.upvote_xvideo, name='upvote_xvideo'),
-    #
-    #
+
+
+    #Anime
+    path('xvideos/', views.all_xvideos, name= 'all_xvideos'),
+    path('xvideo_create', views.xvideo_create, name= 'xvideo_create'),
+    path('xvideo_update/<int:id>/',  views.xvideo_update, name= 'xvideo_update'),
+    path('xvideo_delete/<int:id>/',  views.xvideo_delete, name= 'xvideo_delete'),
+    path('xvideo/<int:xvideo_id>/',  views.xvideo_detail, name='xvideo_detail'),
+    path('xvideo_upvote/<int:xvideo_id>/',  views.xvideo_upvote, name='xvideo_upvote'),
+
+
+
 
 
 

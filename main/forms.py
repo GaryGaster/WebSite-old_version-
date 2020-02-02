@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Video, Movie
+from .models import Video
 
 class VideoForm(ModelForm):
     class Meta:
@@ -14,14 +14,8 @@ class VideoForm(ModelForm):
         }
 
 
-class MovieForm(ModelForm):
-    class Meta:
-        model = Movie
-        fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
-        labels = {
-            "title":"tytuł",
-            "description":"opis",
-            "year":"rok",
-            "image":"zdjęcie",
-            "url":"link"
-        }
+class MovieForm(VideoForm):
+    pass
+
+class SerialForm(VideoForm):
+    pass

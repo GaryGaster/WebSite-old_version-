@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 
+
 class Video(models.Model):
     PLATFORMS = {
         (1, 'HBO'),
@@ -16,11 +17,10 @@ class Video(models.Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     votes_total = models.IntegerField(default=0)
-    voters = models.ManyToManyField(User, related_name='voters')
+    voters = models.ManyToManyField(User, related_name='video_voters')
     image = models.ImageField(upload_to='media/')
     url = models.CharField(null=True, blank=True, max_length=600)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.title
@@ -33,18 +33,21 @@ class Video(models.Model):
     def title_year(self):
         return self.title + " (" + str(self.year) + ") "
 
+    class Meta:
+        abstract = True
+
 class Movie(Video):
-    pass
+    voters = models.ManyToManyField(User, related_name='movie_voters')
 
 class Serial(Video):
-    pass
+    voters = models.ManyToManyField(User, related_name='serial_voters')
 
 
-class Anime(Video):
-    pass
-
-
-class Xvideo(Video):
-    pass
+# class Anime(Video):
+#     voters = models.ManyToManyField(User, related_name='anime_voters')
+#
+#
+# class Xvideo(Video):
+#     voters = models.ManyToManyField(User, related_name='xvideo_voters')
 
 

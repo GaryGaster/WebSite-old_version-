@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+{% language 'pl' %}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{form|crispy}}
+        <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'singup' %}">tutaj</a> </p>
+        <button type="submit" class="btn btn-success">Login</button>
+
+    </form>
+{% endlanguage %}
+{% endblock %}

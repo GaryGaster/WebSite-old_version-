@@ -59,7 +59,7 @@ ROOT_URLCONF = 'WebSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['accounts/templates'],
+        'DIRS': ['WebSite/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,6 +136,6 @@ LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'all_movies'
 
-LOGOUT_REDIRECT_URL = 'login'
+# LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

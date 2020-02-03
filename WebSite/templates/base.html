@@ -27,10 +27,11 @@
       <div class="p-2 bd-highlight">
         <div class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
-          <a class="nav-item nav-link" href="#"><button type="button" class="btn btn-outline-secondary">Wyloguj</button></a>
+          <a class="nav-item nav-link" href="{% url 'logout' %}"><button type="button" class="btn btn-outline-secondary">Wyloguj</button></a>
+          <a class="nav-item nav-link" href="{#profil}"><button type="button" class="btn btn-outline-secondary">Profil</button></a>
           {% else %}
-          <a class="nav-item nav-link" href="#"><button type="button" class="btn btn-warning btn-sm">Rejestracja</button></a>
-          <a class="nav-item nav-link" href="#"><button type="button" class="btn btn-outline-light btn-sm">Logowanie</button></a>
+          <a class="nav-item nav-link" href="{% url 'singup' %}"><button type="button" class="btn btn-warning btn-sm">Rejestracja</button></a>
+          <a class="nav-item nav-link" href="{% url 'login' %}"><button type="button" class="btn btn-outline-light btn-sm">Logowanie</button></a>
           {% endif %}
         </div>
       </div>

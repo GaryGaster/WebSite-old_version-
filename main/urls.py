@@ -3,6 +3,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
+    path('', views.home, name= 'home'),
+
+    #Movies
     path('movies/', views.all_movies, name= 'all_movies'),
     path('movie_create', views.movie_create, name= 'movie_create'),
     path('movie_update/<int:id>/',  views.movie_update, name= 'movie_update'),

@@ -3,8 +3,12 @@ from .forms import MovieForm, SerialForm, AnimeForm, XvideoForm
 from .models import Movie, Serial, Anime, Xvideo
 from django.contrib.auth.decorators import login_required
 
+#Home
+def home(request):
+    return render(request, 'main/home.html')
 
-#Filmy
+
+#Movies
 def all_movies(request):
     movies = Movie.objects.all()
     return render(request, 'main/all_movies.html', {'movies': movies})
@@ -75,7 +79,7 @@ def movie_detail(request, movie_id):
     return render(request, 'main/movie_detail.html', {"movie":movie})
 
 
-#Seriale
+#Series
 def all_series(request):
     series = Serial.objects.all()
     return render(request, 'main/all_series.html', {'series': series})
@@ -146,7 +150,7 @@ def serial_detail(request, serial_id):
     return render(request, 'main/serial_detail.html', {"serial":serial})
 
 
-#Anime
+#Animes
 def all_animes(request):
     animes = Anime.objects.all()
     return render(request, 'main/all_animes.html', {'animes': animes})

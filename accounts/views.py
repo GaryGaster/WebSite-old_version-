@@ -9,7 +9,7 @@ def singup(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Zarejestrowano nowego użytkownika {username}!')
-        return redirect('all_movies')
+        return redirect('login')
     else:
         form = SingupForm()
 

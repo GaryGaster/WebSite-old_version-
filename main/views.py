@@ -5,7 +5,10 @@ from django.contrib.auth.decorators import login_required
 
 #Home
 def home(request):
-    return render(request, 'main/home.html')
+    movies = Movie.objects.all()
+    return render(request, 'main/home.html', {'movies': movies})
+
+
 
 
 #Movies

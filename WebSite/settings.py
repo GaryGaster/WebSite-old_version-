@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
-    'accounts',
+    'main.apps.MainConfig',
+    'accounts.apps.AccountsConfig',
     'multiselectfield',
     'crispy_forms',
     'bootstrap4',
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'WebSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['WebSite/templates'],
+        'DIRS': ['main/templates/main'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

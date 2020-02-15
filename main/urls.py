@@ -1,5 +1,12 @@
 from django.contrib import admin
 from django.urls import path
+from .views import (
+    MovieListView,
+    MovieDetailView,
+    MovieCreateView,
+    MovieUpdateView,
+    MovieDeleteView
+)
 from . import views
 
 urlpatterns = [
@@ -7,11 +14,16 @@ urlpatterns = [
     path('', views.home, name= 'home'),
 
     #Movies
-    path('movies/', views.all_movies, name= 'all_movies'),
-    path('movie_create', views.movie_create, name= 'movie_create'),
+    # path('movies/', views.all_movies, name= 'all_movies'),
+    path('movies/', MovieListView.as_view(), name= 'movies-home'),
+    path('movies/<int:pk>/', MovieDetailView.as_view(), name= 'movie-detail'),
+    path('movies/new/', MovieCreateView.as_view(), name= 'movie-create'),
+    path('movies/<int:pk>/update/', MovieUpdateView.as_view(), name= 'movie-update'),
+    path('movies/<int:pk>/delete/', MovieDeleteView.as_view(), name= 'movie-delete'),
+    # path('movie_create', views.movie_create, name= 'movie_create'),
     path('movie_update/<int:id>/',  views.movie_update, name= 'movie_update'),
-    path('movie_delete/<int:id>/',  views.movie_delete, name= 'movie_delete'),
-    path('movie/<int:movie_id>/',  views.movie_detail, name='movie_detail'),
+    # path('movie_delete/<int:id>/',  views.movie_delete, name= 'movie_delete'),
+    # path('movie/<int:movie_id>/',  views.movie_detail, name='movie_detail'),
     path('upvote_movie/<int:movie_id>/',  views.movie_upvote, name='movie_upvote'),
 
     #Series

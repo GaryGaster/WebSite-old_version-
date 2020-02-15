@@ -1,7 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 from .forms import MovieForm, SerialForm, AnimeForm, XvideoForm
 from .models import Movie, Serial, Anime, Xvideo
-from django.contrib.auth.decorators import login_required
 
 #Home
 def home(request):
@@ -12,29 +20,79 @@ def home(request):
 
 
 #Movies
-def all_movies(request):
-    movies = Movie.objects.all()
-    return render(request, 'main/all_movies.html', {'movies': movies})
+# def all_movies(request):
+#     movies = Movie.objects.all()
+#     return render(request, 'main/movies-home.html', {'movies': movies})
 
-@login_required
-def movie_create(request):
-    form = MovieForm(request.POST or None, request.FILES or None)
+class MovieListView(ListView):
+    model = Movie
+    template_name = 'main/movies-home.html'
+    context_object_name = 'movies'
+    ordering = ['-timestamp']
 
-    if request.method == 'POST':
-        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
-            movie = Movie()
-            movie.title = request.POST['title']
-            movie.description = request.POST['description']
-            movie.year = request.POST['year']
-            movie.image = request.FILES['image']
-            movie.user = request.user
-            movie.save()
-            return redirect(all_movies)
-        else:
-            return render(request, 'main/movie_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
-    else:
-        return render(request, 'main/movie_form.html', {'form': form})
 
+class MovieDetailView(DetailView):
+    model = Movie
+
+
+
+
+class MovieCreateView(LoginRequiredMixin, CreateView):
+    model = Movie
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+
+class MovieUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Movie
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        movie = self.get_object()
+        if self.request.user == movie.user:
+            return True
+        return False
+
+
+class MovieDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Movie
+    success_url = '/movies/'
+
+    def test_func(self):
+        movie = self.get_object()
+        if self.request.user == movie.user:
+            return True
+        return False
+
+
+
+# @login_required
+# def movie_create(request):
+#     form = MovieForm(request.POST or None, request.FILES or None)
+#
+#     if request.method == 'POST':
+#         if request.POST['title'] and request.POST['description'] and request.FILES['image']:
+#             movie = Movie()
+#             movie.title = request.POST['title']
+#             movie.description = request.POST['description']
+#             movie.year = request.POST['year']
+#             movie.image = request.FILES['image']
+#             movie.user = request.user
+#             movie.save()
+#             return redirect(movies-home)
+#         else:
+#             return render(request, 'main/movie_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
+#     else:
+#         return render(request, 'main/movie_form.html', {'form': form})
+#
 
 
 
@@ -46,27 +104,27 @@ def movie_update(request, id):
     if movie.user == request.user:
         if form.is_valid():
             movie.save()
-            return redirect(all_movies)
+            return redirect(movies-home)
         else:
             return render(request, 'main/movie_form.html', {'form': form})
 
     else:
         return render(request, 'main/refusal.html')
 
-@login_required
-def movie_delete(request, id):
-    movie = get_object_or_404(Movie, pk=id)
+# @login_required
+# def movie_delete(request, id):
+#     movie = get_object_or_404(Movie, pk=id)
+#
+#     if movie.user == request.user:
+#         if request.method == 'POST':
+#             movie.delete()
+#             return redirect('movies-home')
+#         return render(request, 'main/movie_confirm_delete.html', {'movie': movie})
+#
+#     else:
+#         return render(request, 'main/refusal.html')
 
-    if movie.user == request.user:
-        if request.method == 'POST':
-            movie.delete()
-            return redirect(all_movies)
-        return render(request, 'main/movie_confirm.html', {'movie': movie})
 
-    else:
-        return render(request, 'main/refusal.html')
-
-@login_required
 def movie_upvote(request, movie_id):
     if request.method == "POST":
         movie = get_object_or_404(Movie, pk=movie_id)
@@ -75,12 +133,13 @@ def movie_upvote(request, movie_id):
             movie.voters.add(request.user)
             movie.save()
 
-        return redirect('all_movies')
+        return redirect('movies-home')
 
-def movie_detail(request, movie_id):
-    movie = get_object_or_404(Movie, pk=movie_id)
-    return render(request, 'main/movie_detail.html', {"movie":movie})
 
+# def movie_detail(request, movie_id):
+#     movie = get_object_or_404(Movie, pk=movie_id)
+#     return render(request, 'main/movie_detail.html', {"movie":movie})
+#
 
 #Series
 def all_series(request):

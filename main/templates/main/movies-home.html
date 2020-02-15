@@ -10,21 +10,23 @@ Filmy
 <br/>
 <h1>Filmy</h1>
 <br/>
-<a href="{% url 'movie_create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+<a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
 {% for movie in movies %}
 <div class="card_video">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
             <h5 class="card-title">{{ movie.title_year}}</h5>
             <p class="card-text">{{ movie.summary }}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{movie.user}}</small></p>
+            <a class="card-text"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
         </div>
         <div class="col-lg-2">
+            {% if movie.user == user %}
             <a href="{% url 'movie_update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie_delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% endif %}
         </div>
         <div class="col-lg-1">
             {% if movie.votes_total == 0 %}

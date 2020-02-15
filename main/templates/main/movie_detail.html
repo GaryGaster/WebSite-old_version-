@@ -4,26 +4,28 @@ Film
 {% endblock %}
 
 {% block content%}
-<div class="card_movie">
+<div class="movie">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <img src="/media/{{object.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
-            <h5 class="card-title">{{ movie.title_year}}</h5>
-            <p class="card-text">{{ movie.summary }}</p>
-            <p> {{movie.platforms}}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{movie.user}}</small></p>
+            <h5 class="card-title">{{ object.title_year}}</h5>
+            <p class="card-text">{{ object.summary }}</p>
+            <p> {{object.platforms}}</p>
+            <p class="card-text"><small class="text-muted">Dodał {{object.user}}</small></p>
 
         </div>
         <div class="col-lg-2">
-            <a href="{% url 'movie_update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie_delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% if object.user == user %}
+            <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% endif %}
         </div>
         <div class="col-lg-1">
-            {% if movie.votes_total == 0 %}
+            {% if object.votes_total == 0 %}
             <a>
-                <a href="javascript:{document.getElementById('movie_upvote{{ movie.id }}').submit()}">
+                <a href="javascript:{document.getElementById('movie_upvote{{ object.id }}').submit()}">
                     <i class="far fa-2x fa-heart"></i>
                 </a>
             </a>
@@ -40,7 +42,7 @@ Film
         </div>
     </div>
 
-    <form id="movie_upvote{{ movie.id }}" method="POST" action="{% url 'movie_upvote' movie.id %}">
+    <form id="movie_upvote{{ object.id }}" method="POST" action="{% url 'movie_upvote' movie.id %}">
         {% csrf_token%}
         <input type="hidden">
     </form>

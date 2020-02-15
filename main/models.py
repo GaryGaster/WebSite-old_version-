@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from multiselectfield import MultiSelectField
 
 
@@ -38,6 +39,10 @@ class Video(models.Model):
 
 class Movie(Video):
     voters = models.ManyToManyField(User, related_name='movie_voters')
+
+    def get_absolute_url(self):
+        return reverse('movie-detail', kwargs={'pk': self.pk})
+
 
 class Serial(Video):
     voters = models.ManyToManyField(User, related_name='serial_voters')

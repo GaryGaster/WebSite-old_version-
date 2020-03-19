@@ -17,13 +17,15 @@ Film
 
         </div>
         <div class="col-lg-2">
-            <a href="{% url 'xvideo_update' xvideo.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'xvideo_delete' xvideo.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% if xvideo.user == user %}
+            <a href="{% url 'xvideo-update' xvideo.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'xvideo-delete' xvideo.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% endif%}
         </div>
         <div class="col-lg-1">
             {% if xvideo.votes_total == 0 %}
             <a>
-                <a href="javascript:{document.getElementById('xvideo_upvote{{ xvideo.id }}').submit()}">
+                <a href="javascript:{document.getElementById('xvideo-upvote{{ xvideo.id }}').submit()}">
                     <i class="far fa-2x fa-heart"></i>
                 </a>
             </a>
@@ -32,7 +34,7 @@ Film
                 <i class="fas fa-2x fa-heart"> {{ xvideo.votes_total }}</i>
             </a>
             {% else %}
-            <a href="javascript:{document.getElementById('xvideo_upvote{{ xvideo.id }}').submit()}">
+            <a href="javascript:{document.getElementById('xvideo-upvote{{ xvideo.id }}').submit()}">
                 <i class="fas fa-2x fa-heart"> {{ xvideo.votes_total }}</i>
             </a>
             {% endif %}
@@ -40,7 +42,7 @@ Film
         </div>
     </div>
 
-    <form id="xvideo_upvote{{ xvideo.id }}" method="POST" action="{% url 'xvideo_upvote' xvideo.id %}">
+    <form id="xvideo-upvote{{ xvideo.id }}" method="POST" action="{% url 'xvideo-upvote' xvideo.id %}">
         {% csrf_token%}
         <input type="hidden">
     </form>

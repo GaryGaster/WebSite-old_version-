@@ -5,50 +5,48 @@ Filmy
 
 {% endblock %}
 {% block content %}
+<h1 class="mb-3">Anime dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 <br/>
-<br/>
-<br/>
-<h1>Filmy</h1>
-<br/>
-<a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
-{% for movie in movies %}
+
+<a href="{% url 'anime-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for anime in animes %}
 <div class="card_video">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <a href="{% url 'anime-detail' anime.id %}"><img src="/media/{{anime.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
-            <h5 class="card-title">{{ movie.title_year}}</h5>
-            <p class="card-text">{{ movie.summary }}</p>
-            <a class="card-text" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
+            <h5 class="card-title">{{ anime.title_year}}</h5>
+            <p class="card-text">{{ anime.summary }}</p>
+            <a class="card-text" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}}</small></a></p>
          </div>
         <div class="col-lg-2">
-            {% if movie.user == user %}
-            <a href="{% url 'movie_update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% if anime.user == user %}
+            <a href="{% url 'anime-update' anime.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'anime-delete' anime.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
             {% endif %}
         </div>
         <div class="col-lg-1">
-            {% if movie.votes_total == 0 %}
+            {% if anime.votes_total == 0 %}
             <a>
-                <a href="javascript:{document.getElementById('movie_upvote{{ movie.id }}').submit()}">
+                <a href="javascript:{document.getElementById('anime-upvote{{ anime.id }}').submit()}">
                     <i class="far fa-2x fa-heart"></i>
                 </a>
             </a>
-            {% elif user in movie.voters.all %}
+            {% elif user in anime.voters.all %}
             <a>
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
+                <i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i>
             </a>
             {% else %}
-            <a href="javascript:{document.getElementById('movie_upvote{{ movie.id }}').submit()}">
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
+            <a href="javascript:{document.getElementById('anime-upvote{{ anime.id }}').submit()}">
+                <i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i>
             </a>
             {% endif %}
 
         </div>
     </div>
 
-    <form id="movie_upvote{{ movie.id }}" method="POST" action="{% url 'movie_upvote' movie.id %}">
+    <form id="anime-upvote{{ anime.id }}" method="POST" action="{% url 'anime-upvote' anime.id %}">
         {% csrf_token%}
         <input type="hidden">
     </form>

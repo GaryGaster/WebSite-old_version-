@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
     DetailView,
@@ -9,7 +8,6 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .forms import MovieForm, SerialForm, AnimeForm, XvideoForm
 from .models import Movie, Serial, Anime, Xvideo
 
 #Home
@@ -17,40 +15,30 @@ def home(request):
     movies = Movie.objects.all()
     return render(request, 'main/home.html', {'movies': movies})
 
-
-
-
-
-
-
-#Movies
-# def all_movies(request):
-#     movies = Movie.objects.all()
-#     return render(request, 'main/movies-home.html', {'movies': movies})
-
-class MovieListView(ListView):
-    model = Movie
-    template_name = 'main/movies-home.html'
-    context_object_name = 'movies'
-    ordering = ['-timestamp']
-    paginate_by = 2
-
+#Movie
 
 class UserMovieListView(ListView):
     model = Movie
     template_name = 'main/user_movies.html'
     context_object_name = 'movies'
     ordering = ['-timestamp']
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Movie.objects.filter(user=user).order_by('-timestamp')
 
+
+class MovieListView(ListView):
+    model = Movie
+    template_name = 'main/movies_home.html'
+    context_object_name = 'movies'
+    ordering = ['-timestamp']
+    paginate_by = 15
+
+
 class MovieDetailView(DetailView):
     model = Movie
-
-
 
 
 class MovieCreateView(LoginRequiredMixin, CreateView):
@@ -60,7 +48,6 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
 
 
 class MovieUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -90,56 +77,6 @@ class MovieDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-# @login_required
-# def movie_create(request):
-#     form = MovieForm(request.POST or None, request.FILES or None)
-#
-#     if request.method == 'POST':
-#         if request.POST['title'] and request.POST['description'] and request.FILES['image']:
-#             movie = Movie()
-#             movie.title = request.POST['title']
-#             movie.description = request.POST['description']
-#             movie.year = request.POST['year']
-#             movie.image = request.FILES['image']
-#             movie.user = request.user
-#             movie.save()
-#             return redirect(movies-home)
-#         else:
-#             return render(request, 'main/movie_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
-#     else:
-#         return render(request, 'main/movie_form.html', {'form': form})
-#
-
-
-
-@login_required
-def movie_update(request, id):
-    movie = get_object_or_404(Movie, pk=id)
-    form = MovieForm(request.POST or None, request.FILES or None, instance=movie)
-
-    if movie.user == request.user:
-        if form.is_valid():
-            movie.save()
-            return redirect(movies-home)
-        else:
-            return render(request, 'main/movie_form.html', {'form': form})
-
-    else:
-        return render(request, 'main/refusal.html')
-
-# @login_required
-# def movie_delete(request, id):
-#     movie = get_object_or_404(Movie, pk=id)
-#
-#     if movie.user == request.user:
-#         if request.method == 'POST':
-#             movie.delete()
-#             return redirect('movies-home')
-#         return render(request, 'main/movie_confirm_delete.html', {'movie': movie})
-#
-#     else:
-#         return render(request, 'main/refusal.html')
-
 
 def movie_upvote(request, movie_id):
     if request.method == "POST":
@@ -152,67 +89,69 @@ def movie_upvote(request, movie_id):
         return redirect('movies-home')
 
 
-# def movie_detail(request, movie_id):
-#     movie = get_object_or_404(Movie, pk=movie_id)
-#     return render(request, 'main/movie_detail.html', {"movie":movie})
-#
-
 #Series
-def all_series(request):
-    series = Serial.objects.all()
-    return render(request, 'main/all_series.html', {'series': series})
 
-@login_required
-def serial_create(request):
-    form = SerialForm(request.POST or None, request.FILES or None)
+class UserSerialListView(ListView):
+    model = Serial
+    template_name = 'main/user_series.html'
+    context_object_name = 'series'
+    ordering = ['-timestamp']
+    paginate_by = 10
 
-    if request.method == 'POST':
-        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
-            serial = Serial()
-            serial.title = request.POST['title']
-            serial.description = request.POST['description']
-            serial.year = request.POST['year']
-            serial.image = request.FILES['image']
-            serial.user = request.user
-            serial.save()
-            return redirect(all_series)
-        else:
-            return render(request, 'main/serial_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
-    else:
-        return render(request, 'main/serial_form.html', {'form': form})
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Serial.objects.filter(user=user).order_by('-timestamp')
 
 
+class SerialListView(ListView):
+    model = Serial
+    template_name = 'main/series_home.html'
+    context_object_name = 'series'
+    ordering = ['-timestamp']
+    paginate_by = 15
 
 
-@login_required
-def serial_update(request, id):
-    serial = get_object_or_404(Serial, pk=id)
-    form = SerialForm(request.POST or None, request.FILES or None, instance=serial)
+class SerialDetailView(DetailView):
+    model = Serial
 
-    if serial.user == request.user:
-        if form.is_valid():
-            serial.save()
-            return redirect(all_series)
-        else:
-            return render(request, 'main/serial_form.html', {'form': form})
 
-    else:
-        return render(request, 'main/refusal.html')
+class SerialCreateView(LoginRequiredMixin, CreateView):
+    model = Serial
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
-def serial_delete(request, id):
-    serial = get_object_or_404(Serial, pk=id)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    if serial.user == request.user:
-        if request.method == 'POST':
-            serial.delete()
-            return redirect(all_series)
-        return render(request, 'main/serial_confirm.html', {'serial': serial})
 
-    else:
-        return render(request, 'main/refusal.html')
+class SerialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Serial
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        serial = self.get_object()
+        if self.request.user == serial.user:
+            return True
+        return False
+
+
+class SerialDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Serial
+    success_url = '/series/'
+
+    def test_func(self):
+        serial = self.get_object()
+        if self.request.user == serial.user:
+            return True
+        return False
+
+
+
+
 def serial_upvote(request, serial_id):
     if request.method == "POST":
         serial = get_object_or_404(Serial, pk=serial_id)
@@ -221,69 +160,71 @@ def serial_upvote(request, serial_id):
             serial.voters.add(request.user)
             serial.save()
 
-        return redirect('all_series')
+        return redirect('series-home')
 
-def serial_detail(request, serial_id):
-    serial = get_object_or_404(Serial, pk=serial_id)
-    return render(request, 'main/serial_detail.html', {"serial":serial})
+#Anime
 
+class UserAnimeListView(ListView):
+    model = Anime
+    template_name = 'main/user_animes.html'
+    context_object_name = 'animes'
+    ordering = ['-timestamp']
+    paginate_by = 10
 
-#Animes
-def all_animes(request):
-    animes = Anime.objects.all()
-    return render(request, 'main/all_animes.html', {'animes': animes})
-
-@login_required
-def anime_create(request):
-    form = AnimeForm(request.POST or None, request.FILES or None)
-
-    if request.method == 'POST':
-        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
-            anime = Anime()
-            anime.title = request.POST['title']
-            anime.description = request.POST['description']
-            anime.year = request.POST['year']
-            anime.image = request.FILES['image']
-            anime.user = request.user
-            anime.save()
-            return redirect(all_animes)
-        else:
-            return render(request, 'main/anime_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
-    else:
-        return render(request, 'main/anime_form.html', {'form': form})
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Anime.objects.filter(user=user).order_by('-timestamp')
 
 
+class AnimeListView(ListView):
+    model = Anime
+    template_name = 'main/animes_home.html'
+    context_object_name = 'animes'
+    ordering = ['-timestamp']
+    paginate_by = 15
 
 
-@login_required
-def anime_update(request, id):
-    anime = get_object_or_404(Anime, pk=id)
-    form = AnimeForm(request.POST or None, request.FILES or None, instance=anime)
+class AnimeDetailView(DetailView):
+    model = Anime
 
-    if anime.user == request.user:
-        if form.is_valid():
-            anime.save()
-            return redirect(all_animes)
-        else:
-            return render(request, 'main/anime_form.html', {'form': form})
 
-    else:
-        return render(request, 'main/refusal.html')
+class AnimeCreateView(LoginRequiredMixin, CreateView):
+    model = Anime
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
-def anime_delete(request, id):
-    anime = get_object_or_404(Anime, pk=id)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    if anime.user == request.user:
-        if request.method == 'POST':
-            anime.delete()
-            return redirect(all_animes)
-        return render(request, 'main/anime_confirm.html', {'anime': anime})
 
-    else:
-        return render(request, 'main/refusal.html')
+class AnimeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Anime
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        anime = self.get_object()
+        if self.request.user == anime.user:
+            return True
+        return False
+
+
+class AnimeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Anime
+    success_url = '/animes/'
+
+    def test_func(self):
+        anime = self.get_object()
+        if self.request.user == anime.user:
+            return True
+        return False
+
+
+
+
 def anime_upvote(request, anime_id):
     if request.method == "POST":
         anime = get_object_or_404(Anime, pk=anime_id)
@@ -292,72 +233,73 @@ def anime_upvote(request, anime_id):
             anime.voters.add(request.user)
             anime.save()
 
-        return redirect('all_animes')
-
-def anime_detail(request, anime_id):
-    anime = get_object_or_404(Anime, pk=anime_id)
-    return render(request, 'main/anime_detail.html', {"anime":anime})
-
+        return redirect('animes-home')
 
 
 
 #Xvideos
 
-def all_xvideos(request):
-    xvideos = Xvideo.objects.all()
-    return render(request, 'main/all_xvideos.html', {'xvideos': xvideos})
+class UserXvideoListView(ListView):
+    model = Xvideo
+    template_name = 'main/user_xvideos.html'
+    context_object_name = 'xvideos'
+    ordering = ['-timestamp']
+    paginate_by = 10
 
-@login_required
-def xvideo_create(request):
-    form = XvideoForm(request.POST or None, request.FILES or None)
-
-    if request.method == 'POST':
-        if request.POST['title'] and request.POST['description'] and request.FILES['image']:
-            xvideo = Xvideo()
-            xvideo.title = request.POST['title']
-            xvideo.description = request.POST['description']
-            xvideo.year = request.POST['year']
-            xvideo.image = request.FILES['image']
-            xvideo.user = request.user
-            xvideo.save()
-            return redirect(all_xvideos)
-        else:
-            return render(request, 'main/xvideo_form.html', {'error': 'Tytuł oraz zdjęcie filmu są konieczne !'})
-    else:
-        return render(request, 'main/xvideo_form.html', {'form': form})
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Xvideo.objects.filter(user=user).order_by('-timestamp')
 
 
+class XvideoListView(ListView):
+    model = Xvideo
+    template_name = 'main/xvideos_home.html'
+    context_object_name = 'xvideos'
+    ordering = ['-timestamp']
+    paginate_by = 15
 
 
-@login_required
-def xvideo_update(request, id):
-    xvideo = get_object_or_404(Xvideo, pk=id)
-    form = XvideoForm(request.POST or None, request.FILES or None, instance=xvideo)
+class XvideoDetailView(DetailView):
+    model = Xvideo
 
-    if xvideo.user == request.user:
-        if form.is_valid():
-            xvideo.save()
-            return redirect(all_xvideos)
-        else:
-            return render(request, 'main/xvideo_form.html', {'form': form})
 
-    else:
-        return render(request, 'main/refusal.html')
+class XvideoCreateView(LoginRequiredMixin, CreateView):
+    model = Xvideo
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
-def xvideo_delete(request, id):
-    xvideo = get_object_or_404(Xvideo, pk=id)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    if xvideo.user == request.user:
-        if request.method == 'POST':
-            xvideo.delete()
-            return redirect(all_xvideos)
-        return render(request, 'main/xvideo_confirm.html', {'xvideo': xvideo})
 
-    else:
-        return render(request, 'main/refusal.html')
+class XvideoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Xvideo
+    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
 
-@login_required
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        xvideo = self.get_object()
+        if self.request.user == xvideo.user:
+            return True
+        return False
+
+
+class XvideoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Xvideo
+    success_url = '/xvideos/'
+
+    def test_func(self):
+        xvideo = self.get_object()
+        if self.request.user == xvideo.user:
+            return True
+        return False
+
+
+
+
 def xvideo_upvote(request, xvideo_id):
     if request.method == "POST":
         xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
@@ -366,10 +308,4 @@ def xvideo_upvote(request, xvideo_id):
             xvideo.voters.add(request.user)
             xvideo.save()
 
-        return redirect('all_xvideos')
-
-def xvideo_detail(request, xvideo_id):
-    xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
-    return render(request, 'main/xvideo_detail.html', {"xvideo":xvideo})
-
-
+        return redirect('xvideos-home')

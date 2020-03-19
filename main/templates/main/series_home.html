@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
-{% block title %}
-Film
-{% endblock %}
 
-{% block content%}
+{% block title %}
+Seriale
+
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<h1>Seriale</h1>
+<br/>
+<a href="{% url 'serial-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for serial in series %}
 <div class="card_serial">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <img src="/media/{{serial.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <a href="{% url 'serial-detail' serial.id %}"><img src="/media/{{serial.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
-            <h5 class="card-title">{{ serial.title_year}}</h5>
+            <h5 class="card-title">{{ serial.title_year}}</h5></a>
             <p class="card-text">{{ serial.summary }}</p>
-            <p> {{serial.platforms}}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{serial.user}}</small></p>
-
+            <a class="card-text" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}}</small></a>
         </div>
         <div class="col-lg-2">
             {% if serial.user == user %}
@@ -47,4 +53,5 @@ Film
         <input type="hidden">
     </form>
 </div>
+{% endfor %}
 {% endblock %}

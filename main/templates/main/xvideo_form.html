@@ -7,11 +7,11 @@ Zapisz
 {% block content%}
 <div class="card_form" >
     <div class="card-body">
-        <h5 class="card-title">Zapisz film</h5>
+        <h5 class="card-title">Zapisz</h5>
         <form role="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
-            <a href="{% url 'all_xvideos' %}">Cofnij</a>
+            <a href="{% url 'xvideos-home' %}">Cofnij</a>
             <button type="submit" class="btn btn-success">Zapisz</button>
         </form>
     </div>

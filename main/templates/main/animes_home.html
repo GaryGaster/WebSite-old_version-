@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
-{% block title %}
-Film
-{% endblock %}
 
-{% block content%}
-<div class="card_anime">
+{% block title %}
+Filmy
+
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<h1>Anime</h1>
+<br/>
+<a href="{% url 'anime-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for anime in animes %}
+<div class="card_video">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <img src="/media/{{anime.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <a href="{% url 'anime-detail' anime.id %}"><img src="/media/{{anime.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
-            <h5 class="card-title">{{ anime.title_year}}</h5>
+            <h5 class="card-title">{{ anime.title_year}}</h5></a>
             <p class="card-text">{{ anime.summary }}</p>
-            <p> {{anime.platforms}}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{anime.user}}</small></p>
-
+            <a class="card-text" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}}</small></a></p>
         </div>
         <div class="col-lg-2">
             {% if anime.user == user %}
@@ -47,4 +53,5 @@ Film
         <input type="hidden">
     </form>
 </div>
+{% endfor %}
 {% endblock %}

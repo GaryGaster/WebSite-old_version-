@@ -1,52 +1,54 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Filmy
++18
 
 {% endblock %}
 {% block content %}
-<h1 class="mb-3">Filmy dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 <br/>
-
-<a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
-{% for movie in movies %}
+<br/>
+<br/>
+<h1>+18</h1>
+<br/>
+<a href="{% url 'xvideo-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+{% for xvideo in xvideos %}
 <div class="card_video">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <a href="{% url 'xvideo-detail' xvideo.id %}"><img src="/media/{{xvideo.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
         <div class="col-lg-5">
-            <h5 class="card-title">{{ movie.title_year}}</h5>
-            <p class="card-text">{{ movie.summary }}</p>
-            <a class="card-text" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
+            <h5 class="card-title">{{ xvideo.title_year}}</h5></a>
+            <p class="card-text">{{ xvideo.summary }}</p>
+            <a class="card-text" href="{% url 'user-xvideos' xvideo.user.username %}"><small class="text-muted">Dodał {{xvideo.user}}</small></a></p>
          </div>
         <div class="col-lg-2">
-            {% if movie.user == user %}
-            <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+            {% if xvideo.user == user %}
+            <a href="{% url 'xvideo-update' xvideo.id %}"><i class="fas fa-2x fa-edit"></i></a>
+            <a href="{% url 'xvideo-delete' xvideo.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
             {% endif %}
         </div>
         <div class="col-lg-1">
-            {% if movie.votes_total == 0 %}
+            {% if xvideo.votes_total == 0 %}
             <a>
-                <a href="javascript:{document.getElementById('movie-upvote{{ movie.id }}').submit()}">
+                <a href="javascript:{document.getElementById('xvideo-upvote{{ xvideo.id }}').submit()}">
                     <i class="far fa-2x fa-heart"></i>
                 </a>
             </a>
-            {% elif user in movie.voters.all %}
+            {% elif user in xvideo.voters.all %}
             <a>
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
+                <i class="fas fa-2x fa-heart"> {{ xvideo.votes_total }}</i>
             </a>
             {% else %}
-            <a href="javascript:{document.getElementById('movie-upvote{{ movie.id }}').submit()}">
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
+            <a href="javascript:{document.getElementById('xvideo-upvote{{ xvideo.id }}').submit()}">
+                <i class="fas fa-2x fa-heart"> {{ xvideo.votes_total }}</i>
             </a>
             {% endif %}
 
         </div>
     </div>
 
-    <form id="movie-upvote{{ movie.id }}" method="POST" action="{% url 'movie-upvote' movie.id %}">
+    <form id="xvideo-upvote{{ xvideo.id }}" method="POST" action="{% url 'xvideo-upvote' xvideo.id %}">
         {% csrf_token%}
         <input type="hidden">
     </form>

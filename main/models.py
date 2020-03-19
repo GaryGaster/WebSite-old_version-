@@ -47,12 +47,18 @@ class Movie(Video):
 class Serial(Video):
     voters = models.ManyToManyField(User, related_name='serial_voters')
 
+    def get_absolute_url(self):
+        return reverse('serial-detail', kwargs={'pk': self.pk})
 
 class Anime(Video):
     voters = models.ManyToManyField(User, related_name='anime_voters')
+
+    def get_absolute_url(self):
+        return reverse('anime-detail', kwargs={'pk': self.pk})
 
 
 class Xvideo(Video):
     voters = models.ManyToManyField(User, related_name='xvideo_voters')
 
-
+    def get_absolute_url(self):
+        return reverse('xvideo-detail', kwargs={'pk': self.pk})

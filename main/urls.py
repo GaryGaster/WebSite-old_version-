@@ -5,7 +5,8 @@ from .views import (
     MovieDetailView,
     MovieCreateView,
     MovieUpdateView,
-    MovieDeleteView
+    MovieDeleteView,
+    UserMovieListView
 )
 from . import views
 
@@ -16,6 +17,7 @@ urlpatterns = [
     #Movies
     # path('movies/', views.all_movies, name= 'all_movies'),
     path('movies/', MovieListView.as_view(), name= 'movies-home'),
+    path('movies/user/<str:username>', UserMovieListView.as_view(), name= 'user-movies'),
     path('movies/<int:pk>/', MovieDetailView.as_view(), name= 'movie-detail'),
     path('movies/new/', MovieCreateView.as_view(), name= 'movie-create'),
     path('movies/<int:pk>/update/', MovieUpdateView.as_view(), name= 'movie-update'),

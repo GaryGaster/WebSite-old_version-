@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
@@ -19,6 +20,9 @@ def home(request):
 
 
 
+
+
+
 #Movies
 # def all_movies(request):
 #     movies = Movie.objects.all()
@@ -29,7 +33,19 @@ class MovieListView(ListView):
     template_name = 'main/movies-home.html'
     context_object_name = 'movies'
     ordering = ['-timestamp']
+    paginate_by = 2
 
+
+class UserMovieListView(ListView):
+    model = Movie
+    template_name = 'main/user_movies.html'
+    context_object_name = 'movies'
+    ordering = ['-timestamp']
+    paginate_by = 2
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Movie.objects.filter(user=user).order_by('-timestamp')
 
 class MovieDetailView(DetailView):
     model = Movie

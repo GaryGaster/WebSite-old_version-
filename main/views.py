@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (
     ListView,
     DetailView,
@@ -78,6 +79,7 @@ class MovieDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
+@login_required
 def movie_upvote(request, movie_id):
     if request.method == "POST":
         movie = get_object_or_404(Movie, pk=movie_id)
@@ -85,9 +87,15 @@ def movie_upvote(request, movie_id):
             movie.votes_total += 1
             movie.voters.add(request.user)
             movie.save()
+            return redirect('movies-home')
+        else:
+            movie.votes_total -= 1
+            movie.voters.remove(request.user)
+            movie.save()
+            return redirect('movies-home')
+
 
         return redirect('movies-home')
-
 
 #Series
 

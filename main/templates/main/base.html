@@ -12,6 +12,7 @@
     {% endif %}
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Spicy+Rice&display=swap" rel="stylesheet"> 
     <script src="https://kit.fontawesome.com/19abe0e356.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
 
@@ -19,8 +20,7 @@
 </head>
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <div class="d-flex bd-highlight">
+    <div class="container-fluid">
         <div class="navbar-nav">
           <a class="navbar-brand" href="#">GaryGaster</a>
           <a class="nav-item nav-link" href="{% url 'movies-home' %}">Filmy</a>
@@ -28,9 +28,7 @@
           <a class="nav-item nav-link" href="{% url 'animes-home' %}">Anime</a>
           <a class="nav-item nav-link" href="{% url 'xvideos-home' %}">+18</a>
         </div>
-      </div>
-      <div class="p-2 bd-highlight">
-        <div class="navbar-nav ml-auto">
+        <div class="navbar-nav">
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fas fa-2x fa-user-circle"></i></a>
           <a class="nav-item nav-link" href="{% url 'logout' %}"><button type="button" class="btn btn-outline-secondary">Wyloguj</button></a>
@@ -39,7 +37,6 @@
           <a class="nav-item nav-link" href="{% url 'login' %}"><button type="button" class="btn btn-outline-light btn-sm">Logowanie</button></a>
           {% endif %}
         </div>
-      </div>
     </div>
   </nav>
 </header>
@@ -50,9 +47,9 @@
 
 
 </header>
-<main role="main" class="container">
+<main role="main" class="container-fluid">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       {% if messages %}
       {% for message in messages %}
       <div class="alert alert-{{ message.tags }}">
@@ -62,7 +59,7 @@
       {% endif %}
       {% block content %}{% endblock %}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="content-section">
         <h3>Reklama</h3>
         <p class='text-muted'>Miejsce na reklame
@@ -75,7 +72,7 @@
   </div>
 </main>
   <footer class="text-muted">
-    <div class="container text-center">
+    <div class="container-fluid text-center">
       <p><i class="far fa-copyright"></i> GaryGaster </p>
       </div>
   </footer>

@@ -10,46 +10,36 @@ Filmy
 
 <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
 {% for movie in movies %}
-<div class="card_video">
+<div class="card_video" style="width: 600px">
     <div class="row no-gutters">
-        <div class="col-lg-4">
+        <div class="col-sm-4">
             <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
-        <div class="col-lg-5">
+        <div class="col-sm-5">
             <h5 class="card-title">{{ movie.title_year}}</h5>
             <p class="card-text">{{ movie.summary }}</p>
             <a class="card-text" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
          </div>
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             {% if movie.user == user %}
             <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
             <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
             {% endif %}
         </div>
-        <div class="col-lg-1">
-            {% if movie.votes_total == 0 %}
-            <a>
-                <a href="javascript:{document.getElementById('movie-upvote{{ movie.id }}').submit()}">
-                    <i class="far fa-2x fa-heart"></i>
-                </a>
-            </a>
-            {% elif user in movie.voters.all %}
-            <a>
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
-            </a>
-            {% else %}
-            <a href="javascript:{document.getElementById('movie-upvote{{ movie.id }}').submit()}">
-                <i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i>
-            </a>
-            {% endif %}
+            <div>
+                <form action="{% url 'movie-upvote' movie.id%}" method="post">
+                    {% csrf_token %}
+                    {% if movie.votes_total == 0 %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
 
-        </div>
+                    {% elif user in movie.voters.all %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ movie.votes_total }}</i></button>
+                    {% else %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i></button>
+                    {% endif%}
+                </form>
+            </div>
     </div>
-
-    <form id="movie-upvote{{ movie.id }}" method="POST" action="{% url 'movie-upvote' movie.id %}">
-        {% csrf_token%}
-        <input type="hidden">
-    </form>
 </div>
 {% endfor %}
 {% if is_paginated %}

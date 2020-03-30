@@ -9,6 +9,7 @@ class Video(models.Model):
         (1, 'HBO'),
         (2, 'NETFLIX'),
         (3, 'AMAZONPRIME'),
+        (4, 'YOUTUBE'),
     }
 
     title = models.CharField(max_length=128)
@@ -28,7 +29,7 @@ class Video(models.Model):
 
 
     def summary(self):
-        return self.description[:220]
+        return self.description[:120]
 
 
     def title_year(self):

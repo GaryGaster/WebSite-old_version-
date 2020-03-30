@@ -1,0 +1,70 @@
+section {
+    margin-inline: 5%;
+}
+
+section h1 {
+    color: #ff0032;
+    margin-top: 5%;
+}
+
+body {
+    color: #444;
+    background-image: linear-gradient(-20deg, #343a40,   rgb(85, 85, 49));    
+}
+
+
+.navbar-nav {
+    padding-inline: 5%;
+}
+
+.video {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5%;
+}
+
+.card {
+    border: 0;
+    background-color: #241d2b; 
+
+}
+
+.card-body {
+    padding-top: 5%;
+    color: white;
+      
+}
+
+.card-title { 
+    color: white;   
+    font: 1em sans-serif;
+    font-family: 'Roboto Slab', serif;
+}
+
+#icon {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-gap: 10%;
+    margin-top: 3%;
+    margin-bottom: 8%;    
+}
+
+#add {
+    float: left;
+}
+
+.edit-delete a {
+    float: right;
+    font-size: 130%;
+    padding: 3%;
+    color:#ff0032;
+}
+
+.img-platform {
+    height: 100%;
+    width: 60%;
+}
+
+.watch {
+    margin-bottom: 0;
+}

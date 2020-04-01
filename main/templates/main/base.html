@@ -33,7 +33,7 @@
           <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fas fa-2x fa-user-circle"></i></a>
           <a class="nav-item nav-link" href="{% url 'logout' %}"><button type="button" class="btn btn-outline-secondary">Wyloguj</button></a>
           {% else %}
-          <a class="nav-item nav-link" href="{% url 'register' %}"><button type="button" class="btn btn-warning btn-sm">Rejestracja</button></a>
+          <a class="nav-item nav-link" href="{% url 'signup' %}"><button type="button" class="btn btn-warning btn-sm">Rejestracja</button></a>
           <a class="nav-item nav-link" href="{% url 'login' %}"><button type="button" class="btn btn-outline-light btn-sm">Logowanie</button></a>
           {% endif %}
         </div>

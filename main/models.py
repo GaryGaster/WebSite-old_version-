@@ -20,7 +20,7 @@ class Video(models.Model):
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     votes_total = models.IntegerField(default=0)
     voters = models.ManyToManyField(User, related_name='video_voters')
-    image = models.ImageField(upload_to='media/')
+    image = models.ImageField(null=True, blank=True, default='video-default.jpeg', upload_to='media/')
     url = models.CharField(null=True, blank=True, max_length=600)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

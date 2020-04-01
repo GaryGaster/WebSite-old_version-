@@ -19,7 +19,7 @@ Filmy
                 <h5 class="card-title">{{ movie.title_year}}</h5></a>
                 <p class="watch">Oglądaj w: </p>                
                 <div id='icon'>
-                    {% for choice in movie.platforms %}                    
+                    {% for choice in movie.platforms %}
                     {% if choice == "1" %}
                     <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
                     {% elif choice == "2" %}
@@ -28,10 +28,10 @@ Filmy
                     <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
                     {% elif choice == "4" %}
                     <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
-                    {% else %}
+
                     {% endif %}
-                 
-                    {% endfor %}        
+
+                    {% endfor %}
 
                 </div>
                          

@@ -8,7 +8,7 @@
     <form method="POST" class="form-group">
         {% csrf_token %}
         {{form|crispy}}
-        <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'register' %}">tutaj</a> </p>
+        <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'signup' %}">tutaj</a> </p>
         <button type="submit" class="btn btn-success">Login</button>
 
     </form>

@@ -35,7 +35,7 @@ class MovieListView(ListView):
     template_name = 'main/movies_home.html'
     context_object_name = 'movies'
     ordering = ['-timestamp']
-    paginate_by = 15
+    paginate_by = 12
 
 
 class MovieDetailView(DetailView):
@@ -96,6 +96,8 @@ def movie_upvote(request, movie_id):
 
 
         return redirect('movies-home')
+
+
 
 #Series
 

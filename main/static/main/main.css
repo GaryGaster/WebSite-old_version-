@@ -13,9 +13,6 @@ section h1 {
 }
 
 
-
-
-
 html, body {
     color: #444;
     background-image: linear-gradient(-20deg, #343a40,   rgb(85, 85, 49));
@@ -45,7 +42,7 @@ body {
 
 aside {
     padding: 10%;
-    color: white;
+    color: #fff;
      
 }
 
@@ -56,19 +53,19 @@ aside img {
 }
 
 @keyframes bonus {
-    0% {color: white; font-size: 140%;}
-    50% {color: green; font-size: 200%;}
-    100% {color: white; font-size: 140%;}
+    0% {color: #fff; font-size: 140%;}
+    50% {color: green; font-size: 142%;}
+    100% {color: #fff; font-size: 140%;}
 }
 
 .text-adv {
-    color: white;
+    color: #fff;
     padding: 5% 5% 0% 5% ;
     font-family: 'Fredoka One', cursive;
     font-size: 140%;
     transition: font-size 5s, color 5s ease-in-out;
     animation-name: bonus;
-    animation-duration: 8s;
+    animation-duration: 4s;
 }
 
 .text-adv:hover {
@@ -78,9 +75,22 @@ aside img {
     font-size: 200%;
 }
 
-#Adv:hover {
-    text-decoration: underline;
+.text-adv::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 5s;
 }
+
+.text-adv:hover::after {
+    color: #fff;
+    width: 190px;
+    transition: width 5s;
+}
+
+
 
 
 
@@ -98,18 +108,27 @@ aside img {
 
 .card {
     border: 0;
-    background-color: #241d2b; 
+    background-color: #241d2b;    
+    transition: transform 2s ease-in-out, box-shadow 2s ease-in-out;
 
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 20px 20px 16px black;      
+    
+
+s
 }
 
 .card-body {
     padding-top: 5%;
-    color: white;
+    color: #fff;
       
 }
 
 .card-title { 
-    color: white;   
+    color: #fff;   
     font: 1em sans-serif;
     font-family: 'Roboto Slab', serif;
     font-size: 135%;
@@ -141,7 +160,7 @@ aside img {
 
 .img-platform {
     height: 100%;
-    width: 60%;
+    width: 70%;
 }
 
 .watch {
@@ -149,10 +168,13 @@ aside img {
 }
 
 a {
-    color: white;
+    color: #fff;
 }
 
 a:hover {
-    color: white;
     text-decoration: none;
+    color: #fff;
 }
+
+
+

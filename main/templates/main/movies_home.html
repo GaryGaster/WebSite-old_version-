@@ -2,7 +2,6 @@
 
 {% block title %}
 Filmy
-
 {% endblock %}
 {% block content %}
 
@@ -12,6 +11,7 @@ Filmy
     <div class="create">
         <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
     </div>
+    <br/>
     <br/>
     <article class="video">
         {% for movie in movies %}
@@ -49,7 +49,6 @@ Filmy
                     {% endfor %}
 
                 </div>
-
 
 
 

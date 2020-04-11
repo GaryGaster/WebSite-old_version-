@@ -32,15 +32,63 @@ body {
     padding-inline: 5%;
 }
 
+.navbar-nav img {
+    padding-right: 8px;
+    height: 38px;
+}
+
 #main {
     overflow: auto;
     background-image: linear-gradient(-20deg, #343a40,   rgb(85, 85, 49));
     height: 88%;
 }
 
-/*#footer {
-    height: 5%;
-}*/
+aside {
+    padding: 10%;
+    color: white;
+     
+}
+
+
+aside img {
+    height: 80px;
+     
+}
+
+@keyframes bonus {
+    0% {color: white; font-size: 140%;}
+    50% {color: green; font-size: 200%;}
+    100% {color: white; font-size: 140%;}
+}
+
+.text-adv {
+    color: white;
+    padding: 5% 5% 0% 5% ;
+    font-family: 'Fredoka One', cursive;
+    font-size: 140%;
+    transition: font-size 5s, color 5s ease-in-out;
+    animation-name: bonus;
+    animation-duration: 8s;
+}
+
+.text-adv:hover {
+    color: green;
+    padding: 5% 5% 0% 5% ;
+    font-family: 'Fredoka One', cursive;
+    font-size: 200%;
+}
+
+#Adv:hover {
+    text-decoration: underline;
+}
+
+
+
+#footer {
+    align-items: center;
+    padding-top: 2px;
+
+}
 
 .video {
     display: grid;
@@ -98,4 +146,13 @@ body {
 
 .watch {
     margin-bottom: 0;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
 }

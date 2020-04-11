@@ -13,7 +13,7 @@ Filmy
         <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
     </div>
     <br/>
-    <div class="video">
+    <article class="video">
         {% for movie in movies %}
         <div class="card">
             <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
@@ -66,60 +66,13 @@ Filmy
     </div>
 
     {% endfor %}
-    </div>
-
-
-    
+    </article>   
 
     <br/>
-    <br/><br/>
-    <br/><br/>
-    <br/><br/>
     <br/>
-   <article>
-       <!-- <h1>Filmy</h1>
-       <br/>
-       <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
-       <div class="card-video">
-           {% for movie in movies %}
-           <div class="card_video">
-               <div class="row no-gutters">
-                   <div class="col-md-4">
-                       <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
-                    </div> 
-                   <div class="col-md-5">
-                       <h5 class="card-title">{{ movie.title_year}}</h5></a>
-                   </div>
-                   <div class="col-md-2">
-                       {% if movie.user == user %}
-                       <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-edit"></i></a>
-                       <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-trash-alt"></i></a>
-                       {% endif %}
-                   </div>
-                   <div class="col-md-1">
-                       <div>
-                           <form action="{% url 'movie-upvote' movie.id%}" method="post">
-                               {% csrf_token %}
-                               {% if movie.votes_total == 0 %}
-                               <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
-
-                               {% elif user in movie.voters.all %}
-                               <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ movie.votes_total }}</i></button>
-                               {% else %}
-                               <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i></button>
-                               {% endif%}
-                           </form>
-                       </div>
-                       <a class="card-text" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
-                   </div>
-               </div>
-           </div>
-           {% endfor %}
-
-       </div> --> -->
-
-   </article>
-
+    <br/>   
+    <br/>
+   
 
     {% if is_paginated %}
 

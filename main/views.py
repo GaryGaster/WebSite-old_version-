@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from .form import MovieForm, SerialForm, AnimeForm, XvideoForm
 from django.views.generic import (
     ListView,
     DetailView,
@@ -44,7 +45,8 @@ class MovieDetailView(DetailView):
 
 class MovieCreateView(LoginRequiredMixin, CreateView):
     model = Movie
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    form_class = MovieForm
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -53,7 +55,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
 
 class MovieUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Movie
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    form_class = MovieForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -126,8 +128,8 @@ class SerialDetailView(DetailView):
 
 
 class SerialCreateView(LoginRequiredMixin, CreateView):
-    model = Serial
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    model = Serial    
+    form_class = SerialForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -136,7 +138,7 @@ class SerialCreateView(LoginRequiredMixin, CreateView):
 
 class SerialUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Serial
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    form_class = SerialForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -200,7 +202,7 @@ class AnimeDetailView(DetailView):
 
 class AnimeCreateView(LoginRequiredMixin, CreateView):
     model = Anime
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    form_class = AnimeForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -209,8 +211,8 @@ class AnimeCreateView(LoginRequiredMixin, CreateView):
 
 class AnimeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Anime
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
-
+    form_class = AnimeForm
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -275,7 +277,7 @@ class XvideoDetailView(DetailView):
 
 class XvideoCreateView(LoginRequiredMixin, CreateView):
     model = Xvideo
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+    form_class = XvideoForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -284,8 +286,8 @@ class XvideoCreateView(LoginRequiredMixin, CreateView):
 
 class XvideoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Xvideo
-    fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
-
+    form_class = XvideoForm
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)

@@ -1,11 +1,14 @@
 
 {% extends 'base.html' %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block title %}
 Zapisz
 {% endblock %}
 
+
 {% block content%}
+{% language 'en' %}
 <div class="card_form" >
     <div class="card-body">
         <h5 class="card-title">Zapisz serial</h5>
@@ -17,4 +20,5 @@ Zapisz
         </form>
     </div>
 </div>
+{% endlanguage %}
 {% endblock %}

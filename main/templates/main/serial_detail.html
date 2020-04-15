@@ -4,47 +4,61 @@ Film
 {% endblock %}
 
 {% block content%}
-<div class="card_serial">
+<div class="detail">
     <div class="row no-gutters">
         <div class="col-lg-4">
-            <img src="/media/{{serial.image}}" class="card-img" alt="Wrzuć obrazek!">
+            <img src="/media/{{object.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
-        <div class="col-lg-5">
-            <h5 class="card-title">{{ serial.title_year}}</h5>
-            <p class="card-text">{{ serial.summary }}</p>
-            <p> {{serial.platforms}}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{serial.user}}</small></p>
+        <div class="col-lg-6">
+            <h5 class="detail-title">{{ serial.title_year}}</h5>
+            <div id='detail-icon'>
+                {% for choice in serial.platforms %}
+                {% if choice == "1" %}
+                <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
+                {% elif choice == "2" %}
+                <a href="https://www.netflix.com/"><img src="/media/media/platforms/netflix.png" class="img-platform" alt="Netflix"></a>
+                {% elif choice == "3" %}
+                <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
+                {% elif choice == "4" %}
+                <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+            <div class="detail-add">
+                <a id="add" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}}</small></a>                
+            </div>
+            
 
         </div>
         <div class="col-lg-2">
-            {% if serial.user == user %}
-            <a href="{% url 'serial-update' serial.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'serial-delete' serial.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
-            {% endif %}
+            <div id="detail-edit-delete">                
+                {% if serial.user == user %}
+                <a href="{% url 'serial-update' serial.id %}"><i class="fas fa-2x fa-edit"> </i></a>
+                <a href="{% url 'serial-delete' serial.id %}"><i class="fas fa-2x fa-trash-alt"> </i></a>
+                {% endif %}
+            </div>
+            
+            <div id="detail-votes">
+                <form action="{% url 'serial-upvote' serial.id%}" method="post">
+                    {% csrf_token %}
+                    {% if serial.votes_total == 0 %}
+                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
+    
+                    {% elif user in serial.voters.all %}
+                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ serial.votes_total }}</i></button>
+                    {% else %}
+                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ serial.votes_total }}</i></button>
+                    {% endif%}
+                </form>                
+            </div>
+            
         </div>
-        <div class="col-lg-1">
-            {% if serial.votes_total == 0 %}
-            <a>
-                <a href="javascript:{document.getElementById('serial-upvote{{ serial.id }}').submit()}">
-                    <i class="far fa-2x fa-heart"></i>
-                </a>
-            </a>
-            {% elif user in serial.voters.all %}
-            <a>
-                <i class="fas fa-2x fa-heart"> {{ serial.votes_total }}</i>
-            </a>
-            {% else %}
-            <a href="javascript:{document.getElementById('serial-upvote{{ serial.id }}').submit()}">
-                <i class="fas fa-2x fa-heart"> {{ serial.votes_total }}</i>
-            </a>
-            {% endif %}
-
+        <div id="detail-desc">
+            <p>{{ serial.description }}</p>
         </div>
+        
     </div>
-
-    <form id="serial-upvote{{ serial.id }}" method="POST" action="{% url 'serial-upvote' serial.id %}">
-        {% csrf_token%}
-        <input type="hidden">
-    </form>
 </div>
 {% endblock %}

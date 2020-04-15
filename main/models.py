@@ -13,7 +13,7 @@ class Video(models.Model):
     }
 
     title = models.CharField(max_length=128)
-    description = models.TextField(blank=True, max_length=600)
+    description = models.TextField(blank=True)
     year = models.IntegerField(null=True, blank=True)
     platforms = MultiSelectField(null=True, blank=True, choices=PLATFORMS)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -26,11 +26,6 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
-
-
-    def summary(self):
-        return self.description[:120]
-
 
     def title_year(self):
         return self.title + " (" + str(self.year) + ") "

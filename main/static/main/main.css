@@ -49,6 +49,7 @@ aside {
 
 aside img {
     height: 80px;
+    
      
 }
 
@@ -176,5 +177,35 @@ a:hover {
     color: #fff;
 }
 
+.detail {
+    padding: 5%;
+    color: #fff;
+}
+
+.detail-title {
+    padding-left: 10%;
+    font-size: 150%;
+}
+
+#detail-icon {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24%;
+    grid-gap: 5%;
+    padding: 10%;    
+}
 
 
+#detail-votes button {
+    padding-top: 50%;
+    color: #ff0032;  
+    
+}
+
+
+.detail-add {
+    padding: 7%;
+}
+
+#detail-desc {
+    padding: 3%;
+}

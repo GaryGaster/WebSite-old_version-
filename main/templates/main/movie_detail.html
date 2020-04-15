@@ -4,37 +4,61 @@ Film
 {% endblock %}
 
 {% block content%}
-<div class="movie">
+<div class="detail">
     <div class="row no-gutters">
         <div class="col-lg-4">
             <img src="/media/{{object.image}}" class="card-img" alt="Wrzuć obrazek!">
         </div>
-        <div class="col-lg-5">
-            <h5 class="card-title">{{ object.title_year}}</h5>
-            <p class="card-text">{{ object.summary }}</p>
-            <p> {{object.platforms}}</p>
-            <p class="card-text"><small class="text-muted">Dodał {{object.user}}</small></p>
+        <div class="col-lg-6">
+            <h5 class="detail-title">{{ movie.title_year}}</h5>
+            <div id='detail-icon'>
+                {% for choice in movie.platforms %}
+                {% if choice == "1" %}
+                <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
+                {% elif choice == "2" %}
+                <a href="https://www.netflix.com/"><img src="/media/media/platforms/netflix.png" class="img-platform" alt="Netflix"></a>
+                {% elif choice == "3" %}
+                <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
+                {% elif choice == "4" %}
+                <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
+
+                {% endif %}
+
+                {% endfor %}
+            </div>
+            <div class="detail-add">
+                <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a>                
+            </div>
+            
 
         </div>
         <div class="col-lg-2">
-            {% if object.user == user %}
-            <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
-            {% endif %}
+            <div id="detail-edit-delete">                
+                {% if movie.user == user %}
+                <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"> </i></a>
+                <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"> </i></a>
+                {% endif %}
+            </div>
+            
+            <div id="detail-votes">
+                <form action="{% url 'movie-upvote' movie.id%}" method="post">
+                    {% csrf_token %}
+                    {% if movie.votes_total == 0 %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
+    
+                    {% elif user in movie.voters.all %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ movie.votes_total }}</i></button>
+                    {% else %}
+                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i></button>
+                    {% endif%}
+                </form>                
+            </div>
+            
         </div>
-        <div>
-            <form action="{% url 'movie-upvote' movie.id%}" method="post">
-                {% csrf_token %}
-                {% if movie.votes_total == 0 %}
-                <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
-
-                {% elif user in movie.voters.all %}
-                <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ movie.votes_total }}</i></button>
-                {% else %}
-                <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i></button>
-                {% endif%}
-            </form>
+        <div id="detail-desc">
+            <p>{{ movie.description }}</p>
         </div>
+        
     </div>
 </div>
 {% endblock %}

@@ -1,10 +1,11 @@
 from django import forms
-from .models import Video, Movie
+from .models import Video, Movie, Serial, Anime, Xvideo
 
 
-class VideoForm(forms.ModelForm):
+
+class MovieForm(forms.ModelForm):
     class Meta:
-        model = Video
+        model = Movie        
         fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
         labels = {
             'title': 'Tytuł',
@@ -15,18 +16,41 @@ class VideoForm(forms.ModelForm):
             'url': 'Link',
             }
 
+class SerialForm(forms.ModelForm):
+    class Meta:
+        model = Serial        
+        fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+        labels = {
+            'title': 'Tytuł',
+            'description': 'Opis',
+            'year': 'Rok',
+            'platforms': 'Platformy',
+            'image': 'Obrazek',
+            'url': 'Link',
+            }
 
-class MovieForm(VideoForm):
-    pass
+class AnimeForm(forms.ModelForm):
+    class Meta:
+        model = Anime        
+        fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+        labels = {
+            'title': 'Tytuł',
+            'description': 'Opis',
+            'year': 'Rok',
+            'platforms': 'Platformy',
+            'image': 'Obrazek',
+            'url': 'Link',
+            }
 
-
-class SerialForm(VideoForm):
-    pass
-
-
-class AnimeForm(VideoForm):
-    pass
-
-
-class XvideoForm(VideoForm):
-    pass
+class XvideoForm(forms.ModelForm):
+    class Meta:
+        model = Xvideo        
+        fields = ['title', 'description', 'year', 'platforms', 'image', 'url']
+        labels = {
+            'title': 'Tytuł',
+            'description': 'Opis',
+            'year': 'Rok',
+            'platforms': 'Platformy',
+            'image': 'Obrazek',
+            'url': 'Link',
+            }

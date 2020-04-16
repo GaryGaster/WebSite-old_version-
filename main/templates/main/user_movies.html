@@ -5,62 +5,68 @@ Filmy
 
 {% endblock %}
 {% block content %}
-<h1 class="mb-3">Filmy dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+<section>
+  <h1 >Filmy dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 <br/>
 
-<a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
-{% for movie in movies %}
-<div class="card_video" style="width: 600px">
-    <div class="row no-gutters">
-        <div class="col-sm-4">
-            <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
-        </div>
-        <div class="col-sm-5">
-            <h5 class="card-title">{{ movie.title_year}}</h5>
-            <p class="card-text">{{ movie.summary }}</p>
-            <a class="card-text" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a></p>
-         </div>
-        <div class="col-sm-2">
-            {% if movie.user == user %}
-            <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
-            <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
-            {% endif %}
-        </div>
-            <div>
-                <form action="{% url 'movie-upvote' movie.id%}" method="post">
-                    {% csrf_token %}
-                    {% if movie.votes_total == 0 %}
-                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
+<article class="video">
+  {% for movie in movies %}
+  <div class="card">
+      <a href="{% url 'movie-detail' movie.id %}"><img src="/media/{{movie.image}}" class="card-img" alt="Wrzuć obrazek!">
+      <div class="card-body">
+          <h5 class="card-title">{{ movie.title_year}}</h5></a>
+          <p class="watch">Oglądaj w: </p>
+          <div id="votes-icon">
+              <form action="{% url 'movie-upvote' movie.id%}" method="post">
+                  {% csrf_token %}
+                  {% if movie.votes_total == 0 %}
+                  <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="far fa fa-heart"></i></button>
 
-                    {% elif user in movie.voters.all %}
-                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ movie.votes_total }}</i></button>
-                    {% else %}
-                    <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ movie.votes_total }}</i></button>
-                    {% endif%}
-                </form>
-            </div>
-    </div>
+                  {% elif user in movie.voters.all %}
+                  <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa fa-heart"> {{ movie.votes_total }}</i></button>
+                  {% else %}
+                  <button type="submit" name="movie_id" value="{{ movie.id }}" class="btn"><i class="fas fa fa-heart"> {{ movie.votes_total }}</i></button>
+                  {% endif%}
+              </form>
+          </div>
+          <div id='icon'>
+              {% for choice in movie.platforms %}
+              {% if choice == "1" %}
+              <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
+              {% elif choice == "2" %}
+              <a href="https://www.netflix.com/"><img src="/media/media/platforms/netflix.png" class="img-platform" alt="Netflix"></a>
+              {% elif choice == "3" %}
+              <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
+              {% elif choice == "4" %}
+              <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
+
+              {% endif %}
+
+              {% endfor %}
+
+          </div>
+
+
+
+      </div>
+
+
+  <div class="edit-delete">
+      <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}} {{  movie.timestamp_pretty }}</small></a>
+      {% if movie.user == user %}
+      <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-edit"> </i></a>
+      <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-trash-alt"> </i></a>
+      {% endif %}
+  </div>
 </div>
+
 {% endfor %}
-{% if is_paginated %}
+</article>
 
-      {% if page_obj.has_previous %}
-        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
-      {% endif %}
+</section>
 
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% endif %}
-      {% endfor %}
-
-      {% if page_obj.has_next %}
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
-      {% endif %}
-
-{% endif %}
 {% endblock %}
+
+
+
+

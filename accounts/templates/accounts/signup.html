@@ -4,11 +4,17 @@
 {% block title %} Create an Account {% endblock %}
 
 {% block content %}
-{% language 'pl' %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-        {{form|crispy}}
-        <button type="submit" class="btn btn-success">Sing Up</button>
-    </form>
-{% endlanguage %}
+<section>
+    <div class="account-card">
+        {% language 'pl' %}
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success">Zarejestruj</button>
+        </form>
+        {% endlanguage %}
+    </div>  
+</section>
 {% endblock %}
+
+

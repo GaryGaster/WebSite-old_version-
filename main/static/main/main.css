@@ -145,6 +145,7 @@ s
 
 #add {
     float: left;
+    font-size: 90%;
 }
 
 .edit-delete a {
@@ -194,10 +195,9 @@ a:hover {
     padding: 10%;    
 }
 
-
 #detail-votes button {
     padding-top: 50%;
-    color: #ff0032;  
+    color: #ff0032 ;  
     
 }
 
@@ -208,4 +208,27 @@ a:hover {
 
 #detail-desc {
     padding: 3%;
+}
+
+.logout {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.logout img{
+    margin-top: 5%;
+}
+
+.account-card {
+    width: 65%;
+    color: #fff;
+    padding: 7%;
+}
+
+.form-text {
+    color: #fff !important;
+}
+
+#carouselExampleControls {
+    padding: 6%;
 }

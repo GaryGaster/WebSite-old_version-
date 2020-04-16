@@ -4,13 +4,17 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-{% language 'pl' %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-        {{form|crispy}}
-        <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'signup' %}">tutaj</a> </p>
-        <button type="submit" class="btn btn-success">Login</button>
+<section>
+    <div class="account-card">
+        {% language 'pl' %}
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{form|crispy}}
+            <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'signup' %}">tutaj</a> </p>
+            <button type="submit" class="btn btn-success">Zaloguj</button>
+        </form>
+        {% endlanguage %}
+    </div>  
+</section>
 
-    </form>
-{% endlanguage %}
 {% endblock %}

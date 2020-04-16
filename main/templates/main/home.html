@@ -2,16 +2,40 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-{% for movie in movies %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ movie.user }}</a>
-            <small class="text-muted">{{ movie.timestamp|date:" d.m.Y" }}</small>
+<section>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/media/Mr_robot.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/bogowie.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/Dragon_ball.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/sex-education.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/tsubasa.jpeg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/westworld.png" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/media/the_hunt.jpg" class="d-block w-100" alt="...">
+          </div>
         </div>
-        <h2><a class="article-title" href="#">{{ movie.title }}</a></h2>
-        <p class="article-content">{{ movie.description }}</p>
-    </div>
-</article>
-{% endfor %}
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Poprzedni</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Następny</span>
+        </a>
+      </div>
+</section>
+
 {% endblock %}

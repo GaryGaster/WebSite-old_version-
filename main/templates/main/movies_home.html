@@ -55,7 +55,7 @@ Filmy
 
 
         <div class="edit-delete">
-            <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a>
+            <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}} {{  movie.timestamp_pretty }}</small></a>
             {% if movie.user == user %}
             <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-edit"> </i></a>
             <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-trash-alt"> </i></a>

@@ -27,7 +27,7 @@ Film
                 {% endfor %}
             </div>
             <div class="detail-add">
-                <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}}</small></a>                
+                <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}} {{  movie.timestamp_pretty }}</small></a>                
             </div>
             
 

@@ -30,6 +30,9 @@ class Video(models.Model):
     def title_year(self):
         return self.title + " (" + str(self.year) + ") "
 
+    def timestamp_pretty(self):
+        return self.timestamp.strftime('%d.%m.%Yr.')
+
     class Meta:
         abstract = True
 

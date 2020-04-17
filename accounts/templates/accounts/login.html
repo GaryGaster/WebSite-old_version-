@@ -10,7 +10,9 @@
         <form method="POST" class="form-group">
             {% csrf_token %}
             {{form|crispy}}
-            <p>Nie posiadasz konta? Zarejestruj się <a href="{% url 'signup' %}">tutaj</a> </p>
+            <div id="reset-password">
+                <a href="{% url 'password_rester' %}"><span class="badge badge-warning">Zresetuj hasło</span></a>
+            </div>            
             <button type="submit" class="btn btn-success">Zaloguj</button>
         </form>
         {% endlanguage %}

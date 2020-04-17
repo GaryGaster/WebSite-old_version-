@@ -19,6 +19,25 @@ def home(request):
 
 #Movie
 
+@login_required
+def movie_upvote(request, movie_id):
+    if request.method == "POST":
+        movie = get_object_or_404(Movie, pk=movie_id)
+        if request.user not in movie.voters.all():
+            movie.votes_total += 1
+            movie.voters.add(request.user)
+            movie.save()
+            return redirect('movies-home')
+        else:
+            movie.votes_total -= 1
+            movie.voters.remove(request.user)
+            movie.save()
+            return redirect('movies-home')
+
+
+        return redirect('movies-home')
+
+
 class UserMovieListView(ListView):
     model = Movie
     template_name = 'main/user_movies.html'
@@ -81,27 +100,27 @@ class MovieDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-@login_required
-def movie_upvote(request, movie_id):
-    if request.method == "POST":
-        movie = get_object_or_404(Movie, pk=movie_id)
-        if request.user not in movie.voters.all():
-            movie.votes_total += 1
-            movie.voters.add(request.user)
-            movie.save()
-            return redirect('movies-home')
-        else:
-            movie.votes_total -= 1
-            movie.voters.remove(request.user)
-            movie.save()
-            return redirect('movies-home')
-
-
-        return redirect('movies-home')
-
 
 
 #Series
+
+@login_required
+def serial_upvote(request, serial_id):
+    if request.method == "POST":
+        serial = get_object_or_404(Serial, pk=serial_id)
+        if request.user not in serial.voters.all():
+            serial.votes_total += 1
+            serial.voters.add(request.user)
+            serial.save()
+            return redirect('series-home')
+        else:
+            serial.votes_total -= 1
+            serial.voters.remove(request.user)
+            serial.save()
+            return redirect('series-home')
+
+        return redirect('series-home')
+
 
 class UserSerialListView(ListView):
     model = Serial
@@ -162,19 +181,27 @@ class SerialDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-
-
-def serial_upvote(request, serial_id):
-    if request.method == "POST":
-        serial = get_object_or_404(Serial, pk=serial_id)
-        if request.user not in serial.voters.all():
-            serial.votes_total += 1
-            serial.voters.add(request.user)
-            serial.save()
-
-        return redirect('series-home')
-
 #Anime
+
+
+
+
+@login_required
+def anime_upvote(request, anime_id):
+    if request.method == "POST":
+        anime = get_object_or_404(Anime, pk=anime_id)
+        if request.user not in anime.voters.all():
+            anime.votes_total += 1
+            anime.voters.add(request.user)
+            anime.save()
+            return redirect('animes-home')
+        else:
+            anime.votes_total -= 1
+            anime.voters.remove(request.user)
+            anime.save()
+            return redirect('animes-home')
+
+        return redirect('animes-home')
 
 class UserAnimeListView(ListView):
     model = Anime
@@ -237,19 +264,24 @@ class AnimeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-def anime_upvote(request, anime_id):
-    if request.method == "POST":
-        anime = get_object_or_404(Anime, pk=anime_id)
-        if request.user not in anime.voters.all():
-            anime.votes_total += 1
-            anime.voters.add(request.user)
-            anime.save()
-
-        return redirect('animes-home')
-
-
-
 #Xvideos
+
+@login_required
+def xvideo_upvote(request, xvideo_id):
+    if request.method == "POST":
+        xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
+        if request.user not in xvideo.voters.all():
+            xvideo.votes_total += 1
+            xvideo.voters.add(request.user)
+            xvideo.save()
+            return redirect('xvideos-home')
+        else:
+            xvideo.votes_total -= 1
+            xvideo.voters.remove(request.user)
+            xvideo.save()
+            return redirect('xvideos-home')
+
+        return redirect('xvideos-home')
 
 class UserXvideoListView(ListView):
     model = Xvideo
@@ -312,12 +344,3 @@ class XvideoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-def xvideo_upvote(request, xvideo_id):
-    if request.method == "POST":
-        xvideo = get_object_or_404(Xvideo, pk=xvideo_id)
-        if request.user not in xvideo.voters.all():
-            xvideo.votes_total += 1
-            xvideo.voters.add(request.user)
-            xvideo.save()
-
-        return redirect('xvideos-home')

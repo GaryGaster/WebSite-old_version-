@@ -115,11 +115,87 @@ body {
 
 }
 
+/* Card login and sing up */
+
+.account-card {
+    width: 65%;
+    color: #fff;
+    padding: 7%;
+}
+
+.form-text {
+    color: #fff !important;
+}
+
+/* Button password reset */
+
+#reset-password {
+    float: right;
+}
+
+/* Logout */
+
+.logout {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.logout img{
+    margin-top: 5%;
+}
+
+
+/* Profil */
+
+
+#profil {
+    color: #fff;
+    padding: 10%;
+    width: 70%;
+}
+
+#profil .media {
+    color: #fff !important;
+    padding-bottom: 10%;
+}
+
+#profil .media-body {
+    color: #fff !important;
+    padding: 7%;
+}
+
+
 /* Home page */
 
 
 #carouselExampleControls {
     padding: 6%;
+}
+
+/* Image main (Filmy, Seriale, Anime, +18) */
+
+.img-filmy img {
+    width: 50%;
+    padding: 5%;
+    margin-inline: 25%;
+}
+
+.img-seriale img {
+    width: 70%;
+    padding: 5%;
+    margin-inline: 15%;
+}
+
+.img-anime img {
+    width: 50%;
+    padding: 5%;
+    margin-inline: 25%;
+}
+
+.img-18 img {
+    width: 50%;
+    padding: 5%;
+    margin-inline: 23%;
 }
 
 
@@ -179,9 +255,16 @@ body {
 /* Icon edit and delete inside main card */
 
 .edit-delete a {
-    float: right;
+    float: left;
     font-size: 130%;
     padding: 3%;
+    color: #ff0032;
+}
+
+.edit-delete #add {
+    float: right;
+    font-size: 90%;
+    padding-top: 5%;
     color: #ff0032;
 }
 
@@ -189,8 +272,9 @@ body {
 /* Icon voters/likes */
 
 #votes-icon button {
-    float: right;
+    float: right;    
     color: #ff0032;
+    padding-top: 10px;
 }
 
 /* inscription "watch in:" */
@@ -244,51 +328,3 @@ a:hover {
     padding: 3%;
 }
 
-/* Card login and sing up */
-
-.account-card {
-    width: 65%;
-    color: #fff;
-    padding: 7%;
-}
-
-.form-text {
-    color: #fff !important;
-}
-
-/* Button password reset */
-
-#reset-password {
-    float: right;
-}
-
-/* Logout */
-
-.logout {
-    margin-top: 5%;
-    margin-left: 5%;
-}
-
-.logout img{
-    margin-top: 5%;
-}
-
-
-/* Profil */
-
-
-#profil {
-    color: #fff;
-    padding: 10%;
-    width: 70%;
-}
-
-#profil .media {
-    color: #fff !important;
-    padding-bottom: 10%;
-}
-
-#profil .media-body {
-    color: #fff !important;
-    padding: 7%;
-}

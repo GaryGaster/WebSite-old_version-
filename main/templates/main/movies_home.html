@@ -5,7 +5,9 @@ Filmy
 {% endblock %}
 {% block content %}
 <section>
-    <h1>Filmy</h1>
+    <div class="img-filmy">
+        <img src="/media/Filmy.jpeg">
+    </div>    
        <br/>
     <div class="create">
         <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
@@ -54,12 +56,12 @@ Filmy
             </div>
 
 
-        <div class="edit-delete">
-            <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}} {{  movie.timestamp_pretty }}</small></a>
+        <div class="edit-delete">            
             {% if movie.user == user %}
             <a href="{% url 'movie-update' movie.id %}"><i class="fas fa-edit"> </i></a>
             <a href="{% url 'movie-delete' movie.id %}"><i class="fas fa-trash-alt"> </i></a>
             {% endif %}
+            <a id="add" href="{% url 'user-movies' movie.user.username %}"><small class="text-muted">Dodał {{movie.user}} {{  movie.timestamp_pretty }}</small></a>
         </div>
     </div>
 

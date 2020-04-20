@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Potwierdz{% endblock %}
+
+{% block content %}
+<div class="age-confirm" >
+    <div class="card-body-age">
+        <h1>Weryfikacja Wieku</h1>
+        <p>+18 jest społecznością dla dorosłych, która zawiera materiały ograniczone wiekowo.</p>
+        <p>Aby na nią wejść, musisz mieć ukończone 18 lat.</p>
+            <a href="{% url 'xvideos-home' %}"><button type="submit" class="btn btn-danger">Mam powyżej 18 lat - Wchodzę</button></a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

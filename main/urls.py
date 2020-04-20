@@ -24,7 +24,7 @@ urlpatterns = [
     path('series/<int:pk>/delete/', views.SerialDeleteView.as_view(), name= 'serial-delete'),
     path('upvote_serial/<int:serial_id>/',  views.serial_upvote, name='serial-upvote'),
 
-    #Animes
+    #Animes    
     path('animes/', views.AnimeListView.as_view(), name= 'animes-home'),
     path('animes/user/<str:username>', views.UserAnimeListView.as_view(), name= 'user-animes'),
     path('animes/<int:pk>/', views.AnimeDetailView.as_view(), name= 'anime-detail'),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('upvote_anime/<int:anime_id>/',  views.anime_upvote, name='anime-upvote'),
 
     # Xvideos
+    path('xvideos/verify_user_age/', views.verify_age, name= 'verify-age'),
     path('xvideos/', views.XvideoListView.as_view(), name='xvideos-home'),
     path('xvideos/user/<str:username>', views.UserXvideoListView.as_view(), name='user-xvideos'),
     path('xvideos/<int:pk>/', views.XvideoDetailView.as_view(), name='xvideo-detail'),

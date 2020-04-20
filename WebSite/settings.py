@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'WebSite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'example',
+        'USER':'example',
+        'PASSWORD':'example',
+        'HOST':'localhost',
+        'PORT':'5432',
     }
 }
 
@@ -147,4 +151,8 @@ EMAIL_HOST_PASSWORD = '<apikey>'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+try:
+    from local_settings import *
+except ImportError:
+    pass
 

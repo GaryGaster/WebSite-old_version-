@@ -3,17 +3,20 @@
 {% block title %}Potwierdz{% endblock %}
 
 {% block content %}
-<div class="card_form" >
-    <div class="card-body">
-        <div class="alert alert-danger" role="alert">
-            Czy napewno chcesz usunąć {{object.title}} ??
+<div id="confirm-delete">
+    <div class="card_form" >
+        <div class="card-body">
+            <div class="alert alert-danger" role="alert">
+                Czy napewno chcesz usunąć {{object.title}} ??
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <a href="{% url 'movies-home' %}">Cofnij</a>
+                <button type="submit" class="btn btn-danger">Tak</button>
+            </form>
         </div>
-        <form method="post">
-            {% csrf_token %}
-            <a href="{% url 'movies-home' %}">Cofnij</a>
-            <button type="submit" class="btn btn-danger">Tak</button>
-        </form>
-    </div>
+    </div>    
+    
 </div>
 
 {% endblock %}

@@ -12,6 +12,7 @@ from django.views.generic import (
 )
 from .models import Movie, Serial, Anime, Xvideo
 
+
 #Home
 def home(request):
     movies = Movie.objects.all()
@@ -265,6 +266,11 @@ class AnimeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 #Xvideos
+
+#Verify user age
+@login_required
+def verify_age(request):
+    return render(request, 'main/verify_age.html')
 
 @login_required
 def xvideo_upvote(request, xvideo_id):

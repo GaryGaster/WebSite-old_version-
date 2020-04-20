@@ -1,4 +1,3 @@
-
 /* Navigation */
 
 .navbar-brand {
@@ -328,3 +327,17 @@ a:hover {
     padding: 3%;
 }
 
+/* Card Verify user age */
+
+.card-body-age {
+    padding: 10%;
+    color: #fff;
+    text-align: center;
+}
+
+/* Alert confirm delete */
+
+#confirm-delete .card-body {
+    padding: 7%;
+    width: 60%;
+ }

@@ -13,7 +13,7 @@ class Video(models.Model):
     }
 
     title = models.CharField(max_length=128)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, default='')
     year = models.IntegerField(null=True, blank=True)
     platforms = MultiSelectField(null=True, blank=True, choices=PLATFORMS)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -21,7 +21,7 @@ class Video(models.Model):
     votes_total = models.IntegerField(default=0)
     voters = models.ManyToManyField(User, related_name='video_voters')
     image = models.ImageField(null=True, blank=True, default='video-default.jpg', upload_to='media/')
-    url = models.URLField(blank=True,)
+    url = models.URLField(blank=True,  default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -12,7 +12,7 @@ Profil
                 {% ifequal profile.image 'default.jpg' %}
                     <img src="{% static 'default.jpg' %}" class="rounded-circle account-img"  alt="Default">
                 {% else %}
-                    <img src="{{ user.profile.image.url }}" class="rounded-circle account-img" alt="Obrazek">        
+                    <img src="{{ user.profile.image.url }}" class="rounded-circle account-img" alt="Wrzuć sobie avatar">        
                 {% endifequal %}                
                 <div class="media-body">
                     <h2 class="account-heading">{{ user.username }}</h2>

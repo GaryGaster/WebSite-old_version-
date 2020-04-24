@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}
@@ -8,23 +9,27 @@ Profil
 <section>
     <div id="profil">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-            <div class="media-body">
-                <h2 class="account-heading">{{ user.username }}</h2>
-                <p>{{ user.email }}</p>
+                {% ifequal profile.image 'default.jpg' %}
+                    <img src="{% static 'default.jpg' %}" class="rounded-circle account-img"  alt="Default">
+                {% else %}
+                    <img src="{{ user.profile.image.url }}" class="rounded-circle account-img" alt="Obrazek">        
+                {% endifequal %}                
+                <div class="media-body">
+                    <h2 class="account-heading">{{ user.username }}</h2>
+                    <p>{{ user.email }}</p>
+                </div>
             </div>
+            {% language 'pl' %}
+            <form method="POST" class="form-group" enctype="multipart/form-data">
+                <legend class="border-bottom mb-4">Profil</legend>
+                {% csrf_token %}
+                {{u_form|crispy}}
+                {{p_form|crispy}}
+                <button type="submit" class="btn btn-success">Edytuj</button>
+            </form>
+            {% endlanguage %}
         </div>
-        {% language 'pl' %}
-        <form method="POST" class="form-group" enctype="multipart/form-data">
-            <legend class="border-bottom mb-4">Profil</legend>
-            {% csrf_token %}
-            {{u_form|crispy}}
-            {{p_form|crispy}}
-            <button type="submit" class="btn btn-success">Edytuj</button>
-        </form>
-        {% endlanguage %}
-    </div>
-
-</section>
-
-{% endblock %}
+    
+    </section>
+    
+    {% endblock %}

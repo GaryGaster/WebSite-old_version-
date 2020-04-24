@@ -81,8 +81,8 @@ WSGI_APPLICATION = 'WebSite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'example',
-        'USER':'example',
+        'NAME': 'exampledb',
+        'USER':'postgres',
         'PASSWORD':'example',
         'HOST':'localhost',
         'PORT':'5432',
@@ -126,11 +126,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'WebSite/static/')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ['static']
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 

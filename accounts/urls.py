@@ -18,5 +18,3 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
 
 ]
-
-

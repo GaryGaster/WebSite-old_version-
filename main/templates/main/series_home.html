@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
 Seriale
 {% endblock %}
 {% block content %}
 <section>
     <div class="img-seriale">
-        <img src="/media/main_pics/Seriale.jpeg">
+        <img src="{% static 'main_pics/Seriale.jpeg' %}" alt="logo">
     </div>  
        <br/>
     <div class="create">
@@ -17,7 +17,11 @@ Seriale
     <article class="video">
         {% for serial in series %}
         <div class="card">
-            <a href="{% url 'serial-detail' serial.id %}"><img src="/media/{{serial.image}}" class="card-img" alt="Wrzuć obrazek!">
+            {% ifequal serial.image 'video-default.jpg' %}
+                <a href="{% url 'serial-detail' serial.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
+            {% else %}
+                <a href="{% url 'serial-detail' serial.id %}"><img src="{{serial.image.url}}" class="card-img" alt="Obrazek"></a>           
+            {% endifequal %}
             <div class="card-body">
                 <h5 class="card-title">{{ serial.title_year}}</h5></a>
                 <p class="watch">Oglądaj w: </p>
@@ -37,17 +41,15 @@ Seriale
                 <div id='icon'>
                     {% for choice in serial.platforms %}
                     {% if choice == "1" %}
-                    <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
-                    {% elif choice == "2" %}
-                    <a href="https://www.netflix.com/"><img src="/media/media/platforms/netflix.png" class="img-platform" alt="Netflix"></a>
-                    {% elif choice == "3" %}
-                    <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
-                    {% elif choice == "4" %}
-                    <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
-
-                    {% endif %}
-
-                    {% endfor %}
+                    <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
+                        {% elif choice == "2" %}
+                    <a href="https://www.netflix.com/"><img src="{% static 'platforms/netflix.png' %}" class="img-platform" alt="Netflix"></a>
+                        {% elif choice == "3" %}
+                    <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon.png' %}" class="img-platform" alt="Amazon"></a>
+                        {% elif choice == "4" %}
+                    <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
+                {% endif %}
+                {% endfor %}
 
                 </div>
 
@@ -57,7 +59,7 @@ Seriale
 
 
         <div class="edit-delete">
-            <a id="add" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}}</small></a>
+            <a id="add" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}} {{  serial.timestamp_pretty }}</small></a>
             {% if serial.user == user %}
             <a href="{% url 'serial-update' serial.id %}"><i class="fas fa-edit"> </i></a>
             <a href="{% url 'serial-delete' serial.id %}"><i class="fas fa-trash-alt"> </i></a>

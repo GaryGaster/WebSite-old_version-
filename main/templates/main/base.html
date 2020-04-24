@@ -1,6 +1,6 @@
-{% load static %}
 <!doctype html>
 <html id="html" lang="en">
+{% load static %}
 
 <head>
     <meta charset="utf-8">
@@ -24,7 +24,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-nav">
-          <img src="/media/logo.jpg" alt="logo">
+          <img src="{% static 'logo.jpg' %}" alt="logo">
           <a class="navbar-brand" href="{% url 'home' %}">GaryGaster</a>
           <a class="nav-item nav-link" href="{% url 'movies-home' %}">Filmy</a>
           <a class="nav-item nav-link" href="{% url 'series-home' %}">Seriale</a>
@@ -53,11 +53,13 @@
 <main id="main" role="main" class="container-fluid">
   <div class="row">
     <div class="col-md-9">
-      {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="width: 500px; margin: 3%;">          
+            {{ message }} 
+          
+        </div>
+      
       {% endfor %}
       {% endif %}
       {% block content %}{% endblock %}
@@ -65,10 +67,9 @@
     <aside class="col-md-3">
       <div id="Adv">
         <a href="https://www.italki.com/i/6bCBfG?hl=pl">
-          <img src="/media/logo_white.svg" alt="Obrazek">
+          <img src="{% static 'logo_white.svg' %}" alt="logo">
           <h2 class='text-adv'>10$ BONUSU</h2>          
-          <p>Rejestrując się przez ten link</p>
-          <p>Najlepszy portal z naitive speaker'ami i nie tylko</p></a>
+          <p>Rejestrując się przez ten link</p></a>
       </div>
     </aside>
   </div>

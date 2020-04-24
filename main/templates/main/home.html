@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %} Home {% endblock %}
 
 {% block content %}
@@ -6,34 +7,34 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="media/home_pics/infiltracja.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/infiltracja.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/Mr_robot.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/Mr_robot.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/bogowie.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/bogowie.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/Dragon_ball.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/Dragon_ball.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/sex-education.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/sex-education.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/tsubasa.jpeg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/tsubasa.jpeg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/westworld.png" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/westworld.png' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/the_hunt.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/the_hunt.jpg' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">s
-            <img src="/media/home_pics/devil_advocate.png" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/devil_advocate.png' %}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="/media/home_pics/south_park.jpg" class="d-block w-100" alt="...">
+            <img src="{% static 'home_pics/south_park.jpg' %}" class="d-block w-100" alt="...">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

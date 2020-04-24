@@ -20,6 +20,7 @@ def home(request):
 
 #Movie
 
+
 @login_required
 def movie_upvote(request, movie_id):
     if request.method == "POST":

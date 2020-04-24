@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Anime użytkownika
@@ -12,7 +13,11 @@ Anime użytkownika
   <article class="video">
     {% for anime in animes %}
     <div class="card">
-        <a href="{% url 'anime-detail' anime.id %}"><img src="/media/{{anime.image}}" class="card-img" alt="Wrzuć obrazek!">
+        {% ifequal anime.image 'video-default.jpg' %}
+            <a href="{% url 'anime-detail' anime.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
+        {% else %}
+            <a href="{% url 'anime-detail' anime.id %}"><img src="{{anime.image.url}}" class="card-img" alt="Obrazek"></a>           
+        {% endifequal %}
         <div class="card-body">
             <h5 class="card-title">{{ anime.title_year}}</h5></a>
             <p class="watch">Oglądaj w: </p>
@@ -32,16 +37,14 @@ Anime użytkownika
             <div id='icon'>
                 {% for choice in anime.platforms %}
                 {% if choice == "1" %}
-                <a href="https://www.hbogo.pl/"><img src="/media/media/platforms/hbogo.png" class="img-platform" alt="HBOGO"></a>
-                {% elif choice == "2" %}
-                <a href="https://www.netflix.com/"><img src="/media/media/platforms/netflix.png" class="img-platform" alt="Netflix"></a>
-                {% elif choice == "3" %}
-                <a href="https://www.primevideo.com/"><img src="/media/media/platforms/amazon.png" class="img-platform" alt="Amazon"></a>
-                {% elif choice == "4" %}
-                <a href="https://www.youtube.com/"><img src="/media/media/platforms/youtube.png" class="img-platform" alt="Youtube"></a>
-  
+                    <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
+                        {% elif choice == "2" %}
+                    <a href="https://www.netflix.com/"><img src="{% static 'platforms/netflix.png' %}" class="img-platform" alt="Netflix"></a>
+                        {% elif choice == "3" %}
+                    <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon.png' %}" class="img-platform" alt="Amazon"></a>
+                        {% elif choice == "4" %}
+                    <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
                 {% endif %}
-  
                 {% endfor %}
   
             </div>

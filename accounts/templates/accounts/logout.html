@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %} Wylogowany {% endblock %}
 
 {% block content %}
 <section>
     <article class="logout">
         <h1>Umyj zęby przed spaniem!</h1>
-        <img src="/media/zeby.jpeg" alt="Obrazek">
+        <img src="{% static 'zeby.jpeg' %}" alt="Obrazek">
     </article>
     
 

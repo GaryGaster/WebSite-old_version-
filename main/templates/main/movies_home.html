@@ -18,13 +18,16 @@ Filmy
     <article class="video">
         {% for movie in movies %}
         <div class="card">
-
             {% ifequal movie.image 'video-default.jpg' %}
-                <a href="{% url 'movie-detail' movie.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
+            <a href="{% url 'movie-detail' movie.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img" alt="Default"></a>        
             {% else %}
-                <a href="{% url 'movie-detail' movie.id %}"><img src="{{movie.image.url}}" class="card-img" alt="Obrazek"></a>           
-            {% endifequal %}
+            <a href="{% url 'movie-detail' movie.id %}"><img src="{{movie.image.url}}" class="card-img"  alt="Obrazek"></a>                       
+            {% endifequal %}            
+            
+                        
             <div class="card-body">
+               
+                
                 <h5 class="card-title">{{ movie.title_year}}</h5></a>
                 <p class="watch">Oglądaj w: </p>
                 <div id="votes-icon">

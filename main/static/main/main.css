@@ -35,7 +35,7 @@ aside img {
 
 @keyframes bonus {
     0% {color: #fff; font-size: 140%;}
-    50% {color: green; font-size: 142%;}
+    50% {color: green; font-size: 160%;}
     100% {color: #fff; font-size: 140%;}
 }
 
@@ -230,6 +230,12 @@ body {
     font: 1em sans-serif;
     font-family: 'Roboto Slab', serif;
     font-size: 135%;
+}
+
+.card-img { 
+    width: 100%;
+    min-height: 220px;
+    max-height: 260px;
 }
 
 /* Icon platforms inside main card */

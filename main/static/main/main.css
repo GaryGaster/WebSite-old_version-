@@ -1,16 +1,34 @@
 /* Navigation */
+.navi {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 0;
+}
+.navi-log {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0;
+    margin-left: 3%;
+}
 
-.navbar-brand {
+.navba-text {
     font-family: 'Lobster', cursive;
+    color: #fff;
+    font-size: 1.2em;
 
 }
 
 .navbar-nav {
-    padding-inline: 5%;
+    padding-inline: 18%;
 }
 
-.navbar-nav img {
-    padding-right: 8px;
+.navbar-brand {
+    padding-left: 4%;
+}
+
+
+.navbar-brand img {
+    padding-right: 5px;
     height: 38px;
 }
 
@@ -34,16 +52,16 @@ aside img {
 /* Animation bonus */
 
 @keyframes bonus {
-    0% {color: #fff; font-size: 140%;}
-    50% {color: green; font-size: 160%;}
-    100% {color: #fff; font-size: 140%;}
+    0% {color: #fff; font-size: 1.4em;}
+    50% {color: green; font-size: 1.6em;}
+    100% {color: #fff; font-size: 1.4em;}
 }
 
 .text-adv {
     color: #fff;
     padding: 5% 5% 0% 5% ;
     font-family: 'Fredoka One', cursive;
-    font-size: 140%;
+    font-size: 1.4em;
     transition: font-size 5s, color 5s ease-in-out;
     animation-name: bonus;
     animation-duration: 4s;
@@ -261,7 +279,7 @@ body {
 
 .edit-delete a {
     float: left;
-    font-size: 130%;
+    font-size: 1.3em;
     padding: 3%;
     color: #ff0032;
 }
@@ -308,7 +326,7 @@ a:hover {
 
 .detail-title {
     padding-left: 10%;
-    font-size: 150%;
+    font-size: 1.5em;
 }
 
 #detail-icon {

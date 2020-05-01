@@ -1,4 +1,5 @@
 /* Navigation */
+
 .navi {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -229,7 +230,8 @@ body {
     border: 0;
     background-color: #241d2b;
     width: 100%;
-    font-size: 2vh;
+    font-size: 1vw;
+    font-size:
     transition: transform 2s ease-in-out, box-shadow 2s ease-in-out;
 
 }
@@ -248,14 +250,13 @@ body {
 
 .card-title { 
     color: #fff;   
-    font: bold 1em sans-serif;
+    font: bold 1.25em sans-serif;
     font-family: 'Roboto Slab', serif;
 }
 
 .card-img { 
-    width: 100%;
-    min-height: 220px;
-    max-height: 260px;
+    width: 100%vw;
+    height: 25vh;s
 }
 
 /* Icon platforms inside main card */
@@ -300,6 +301,7 @@ body {
     float: right;    
     color: #ff0032;
     padding-top: 10px;
+    font-size: 1vw;
 }
 
 /* inscription "watch in:" */

@@ -7,13 +7,10 @@ Filmy
 <section>
     <div class="img-filmy">
         <img src="{% static 'main_pics/Filmy.jpeg' %}" alt="logo">
-    </div>    
-       <br/>
+    </div>
     <div class="create">
         <a href="{% url 'movie-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
     </div>
-    {{ movie.updated_pretty }}
-    <br/>
     <br/>
     <article class="video">
         {% for movie in movies %}

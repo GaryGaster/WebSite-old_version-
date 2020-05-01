@@ -8,11 +8,9 @@
     <div class="img-18">
         <img src="{% static 'main_pics/+18.jpg' %}" alt="logo"> 
     </div>
-       <br/>
     <div class="create">
         <a href="{% url 'xvideo-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
     </div>
-    <br/>
     <br/>
     <article class="video">
         {% for xvideo in xvideos %}

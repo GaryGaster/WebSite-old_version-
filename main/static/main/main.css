@@ -231,7 +231,6 @@ body {
     background-color: #241d2b;
     width: 100%;
     font-size: 1vw;
-    font-size:
     transition: transform 2s ease-in-out, box-shadow 2s ease-in-out;
 
 }
@@ -243,8 +242,10 @@ body {
 }
 
 .card-body {
-    padding-top: 5%;
+    margin-top: 1vh;
+    padding: 1%;
     color: #fff;
+    text-align: center;
       
 }
 
@@ -256,7 +257,9 @@ body {
 
 .card-img { 
     width: 100%vw;
-    height: 25vh;s
+    height: 25vh;
+    height: 15vw;
+
 }
 
 /* Icon platforms inside main card */
@@ -268,7 +271,7 @@ body {
     margin-top: 3%;
     margin-bottom: 8%;
     margin-right: -25px !important;
-    width: 80%;  
+    width: 80%;
 }
 
 /* Size icon  */
@@ -298,7 +301,7 @@ body {
 /* Icon voters/likes */
 
 #votes-icon button {
-    float: right;    
+    float: right;
     color: #ff0032;
     padding-top: 10px;
     font-size: 1vw;
@@ -337,13 +340,13 @@ a:hover {
     display: grid;
     grid-template-columns: 24% 24% 24% 24%;
     grid-gap: 5%;
-    padding: 10%;    
+    padding: 10%;
 }
 
 #detail-votes button {
     padding-top: 35%;
-    color: #ff0032 ;  
-    
+    color: #ff0032 ;
+
 }
 
 

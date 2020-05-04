@@ -39,7 +39,6 @@
 
 aside {
     padding: 10%;
-    color: #fff;
      
 }
 
@@ -59,7 +58,6 @@ aside img {
 }
 
 .text-adv {
-    color: #fff;
     padding: 5% 5% 0% 5% ;
     font-family: 'Fredoka One', cursive;
     font-size: 1.4em;
@@ -85,7 +83,6 @@ aside img {
 }
 
 .text-adv:hover::after {
-    color: #fff;
     width: 190px;
     transition: width 5s;
 }
@@ -112,13 +109,13 @@ html, body {
 }
 
 body {
-    color: #444;
+    color: #fff;
 
 }
 
 #main {
     overflow: auto;
-    padding-top: 8%;
+    padding-top: 10%;
     background-image: linear-gradient(-20deg, #343a40,   rgb(85, 85, 49));
     height: 95%;
 }
@@ -137,12 +134,7 @@ body {
 
 .account-card {
     width: 65%;
-    color: #fff;
     padding: 7%;
-}
-
-.form-text {
-    color: #fff !important;
 }
 
 /* Button password reset */
@@ -167,18 +159,15 @@ body {
 
 
 #profil {
-    color: #fff;
     padding: 10%;
     width: 70%;
 }
 
 #profil .media {
-    color: #fff !important;
     padding-bottom: 10%;
 }
 
 #profil .media-body {
-    color: #fff !important;
     padding: 7%;
 }
 
@@ -244,13 +233,18 @@ body {
 .card-body {
     margin-top: 1vh;
     padding: 1%;
-    color: #fff;
     text-align: center;
       
 }
 
-.card-title { 
-    color: #fff;   
+.card-form .card-body {
+    width: 60vw;
+    min-width: 360px;
+    text-align: left;
+      
+}
+
+.card-title {  
     font: bold 1.25em sans-serif;
     font-family: 'Roboto Slab', serif;
 }
@@ -327,13 +321,47 @@ a:hover {
 /* Detail */
 
 .detail {
-    padding: 5%;
-    color: #fff;
+    text-align: center
+}
+
+.detail .fa-2x{
+    font-size: 2vw;
+}
+
+.detail-card-body a {
+    color: #ff0032;
+}
+
+
+.detail img {    
+    width: 40vw;
+    height: 25vw;      
+    
+}
+
+.detail-add {
+    font-size: 1vw;
+    padding: 1vw;
+}
+
+
+.detail-card-body {
+    margin-top: 1vh;
+    text-align: center;
+
+}
+
+
+.detail-card-body img {
+    width: auto;
+    height: 3vw;
+
 }
 
 .detail-title {
-    padding-left: 10%;
-    font-size: 1.5em;
+    font: bold sans-serif;
+    font-family: 'Roboto Slab', serif;
+    font-size: 2.5vw;
 }
 
 #detail-icon {
@@ -344,25 +372,20 @@ a:hover {
 }
 
 #detail-votes button {
-    padding-top: 35%;
-    color: #ff0032 ;
+    color: #ff0032;
+    float: right;    
 
-}
-
-
-.detail-add {
-    padding: 7%;
 }
 
 #detail-desc {
-    padding: 3%;
+    text-align: left;
+
 }
 
 /* Card Verify user age */
 
 .card-body-age {
     padding: 10%;
-    color: #fff;
     text-align: center;
 }
 

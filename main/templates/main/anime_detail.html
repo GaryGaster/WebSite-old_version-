@@ -6,62 +6,53 @@ Anime-deatial
 
 {% block content%}
 <div class="detail">
-    <div class="row no-gutters">
-        <div class="col-lg-4">
-            {% ifequal anime.image 'video-default.jpg' %}
-                <a href="{% url 'anime-detail' anime.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
-            {% else %}
-                <a href="{% url 'anime-detail' anime.id %}"><img src="{{anime.image.url}}" class="card-img" alt="Obrazek"></a>           
-            {% endifequal %}
-        </div>
-        <div class="col-lg-6">
-            <h5 class="detail-title">{{ anime.title_year}}</h5>
-            <div id='detail-icon'>
-                {% for choice in anime.platforms %}
-                {% if choice == "1" %}
-                    <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
-                {% elif choice == "2" %}
-                    <a href="https://www.netflix.com/"><img src="{% static 'platforms/netflix.png' %}" class="img-platform" alt="Netflix"></a>
-                {% elif choice == "3" %}
-                <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon_v.jpeg' %}" class="img-platform" alt="Amazon"></a>
-                    {% elif choice == "4" %}
-                <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
-                {% endif %}
-                {% endfor %}
-            </div>
-            <div class="detail-add">
-                <a id="add" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>                
-            </div>
-            
+    {% ifequal anime.image 'video-default.jpg' %}
+    <a href="{% url 'anime-detail' anime.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
+    {% else %}
+    <a href="{% url 'anime-detail' anime.id %}"><img src="{{anime.image.url}}" class="card-img" alt="Obrazek"></a>
+    {% endifequal %}
 
+
+    <div class="detail-card-body">
+        <div class="detail-add">
+            <a id="add" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>
         </div>
-        <div class="col-lg-2">
-            <div id="detail-edit-delete">                
-                {% if anime.user == user %}
-                <a href="{% url 'anime-update' anime.id %}"><i class="fas fa-2x fa-edit"> </i></a>
-                <a href="{% url 'anime-delete' anime.id %}"><i class="fas fa-2x fa-trash-alt"> </i></a>
-                {% endif %}
-            </div>
-            
-            <div id="detail-votes">
-                <form action="{% url 'anime-upvote' anime.id%}" method="post">
-                    {% csrf_token %}
-                    {% if anime.votes_total == 0 %}
-                    <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
-    
-                    {% elif user in anime.voters.all %}
-                    <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ anime.votes_total }}</i></button>
-                    {% else %}
-                    <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i></button>
-                    {% endif%}
-                </form>                
-            </div>
-            
+        <h5 class="detail-title">{{ anime.title_year}}</h5>
+        <div id="detail-edit-delete">
+            {% if anime.user == user %}
+            <a href="{% url 'anime-update' anime.id %}"><i class="fas fa-2x fa-edit"> </i></a>
+            <a href="{% url 'anime-delete' anime.id %}"><i class="fas fa-2x fa-trash-alt"> </i></a>
+            {% endif %}
+        </div>
+        <div id="detail-votes">
+            <form action="{% url 'anime-upvote' anime.id%}" method="post">
+                {% csrf_token %}
+                {% if anime.votes_total == 0 %}
+                <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="far fa-2x fa-heart"></i></button>
+
+                {% elif user in anime.voters.all %}
+                <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa-2x fa-heart">{{ anime.votes_total }}</i></button>
+                {% else %}
+                <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa-2x fa-heart"> {{ anime.votes_total }}</i></button>
+                {% endif%}
+            </form>
+        </div>
+        <div id='detail-icon'>
+            {% for choice in anime.platforms %}
+            {% if choice == "1" %}
+            <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
+            {% elif choice == "2" %}
+            <a href="https://www.netflix.com/"><img src="{% static 'platforms/netflix.png' %}" class="img-platform" alt="Netflix"></a>
+            {% elif choice == "3" %}
+            <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon_v.jpeg' %}" class="img-platform" alt="Amazon"></a>
+            {% elif choice == "4" %}
+            <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
+            {% endif %}
+            {% endfor %}
         </div>
         <div id="detail-desc">
             <p>{{ anime.description }}</p>
         </div>
-        
     </div>
 </div>
 {% endblock %}

@@ -398,3 +398,10 @@ a:hover {
     padding: 7%;
     width: 60%;
  }
+
+ /* Pagination */
+
+ .pagination {
+    margin-top: 1rem;
+
+ }

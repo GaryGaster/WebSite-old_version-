@@ -11,7 +11,28 @@ Anime
     <div class="create">
         <a href="{% url 'anime-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
     </div>
-    <br/>
+    <div class="pagination">
+        {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+        {% endif %}
+        {% endif %}
+    </div>
     <article class="video">
         {% for anime in animes %}
         <div class="card">
@@ -62,34 +83,28 @@ Anime
         </div>
         {% endfor %}
     </article>
+    <div class="pagination">
+        {% if is_paginated %}
 
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+        {% endif %}
 
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
 
-    {% if is_paginated %}
-
-    {% if page_obj.has_previous %}
-    <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
-    {% endif %}
-
-    {% for num in page_obj.paginator.page_range %}
-    {% if page_obj.number == num %}
-    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
-
-    {% if page_obj.has_next %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
-    {% endif %}
-
-    {% endif %}
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+        {% endif %}
+        {% endif %}
+    </div>
 </section>
 
 {% endblock %}

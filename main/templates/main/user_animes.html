@@ -8,8 +8,28 @@ Anime użytkownika
 {% block content %}
 <section>
     <h1 >Anime dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
-    <br/>
+    <div class="pagination">
+        {% if is_paginated %}
 
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+        {% endif %}
+        {% endif %}
+    </div>
     <article class="video">
         {% for anime in animes %}
         <div class="card">
@@ -48,14 +68,8 @@ Anime użytkownika
                     <a href="https://www.cda.pl/"><img src="{% static 'platforms/cda.jpeg' %}" class="img-platform" alt="CDA"></a>
                     {% endif %}
                     {% endfor %}
-
                 </div>
-
-
-
             </div>
-
-
             <div class="edit-delete">
                 <a id="add" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>
                 {% if anime.user == user %}
@@ -64,9 +78,30 @@ Anime użytkownika
                 {% endif %}
             </div>
         </div>
-
         {% endfor %}
     </article>
+    <div class="pagination">
+        {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+        {% endif %}
+        {% endif %}
+    </div>
 
 </section>
 {% endblock %}

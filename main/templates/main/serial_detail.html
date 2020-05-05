@@ -5,7 +5,7 @@ Film
 {% endblock %}
 
 {% block content%}
-<div class="detail">
+<article class="detail">
     {% ifequal serial.image 'video-default.jpg' %}
     <a href="{% url 'serial-detail' serial.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
     {% else %}
@@ -47,6 +47,8 @@ Film
             <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon_v.jpeg' %}" class="img-platform" alt="Amazon"></a>
             {% elif choice == "4" %}
             <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
+            {% elif choice == "5" %}
+            <a href="https://www.cda.pl/"><img src="{% static 'platforms/cda.jpeg' %}" class="img-platform" alt="CDA"></a>
             {% endif %}
             {% endfor %}
         </div>
@@ -54,5 +56,5 @@ Film
             <p>{{ serial.description }}</p>
         </div>
     </div>
-</div>
+</article>
 {% endblock %}

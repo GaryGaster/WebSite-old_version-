@@ -5,11 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% if title %}
-    <title>Warto zobaczyć - {{ title }}</title>
-    {% else %}
+    <meta name="keywords" content="garygaster, mielec, warto, zobaczyć, filmy, najlepsze">
     <title>Warto zobaczyć</title>
-    {% endif %}
+
     <!-- Bootstrap core CSS -->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -37,7 +35,7 @@
 
         <div class="collapse navbar-collapse" id="collapse_target">
             <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'logo.jpg' %}" alt="logo">
-            <span class="navba-text">GaryGaster</span></a>
+                <span class="navba-text">GaryGaster</span></a>
 
             <div class="container-fluid">
                 <div class="navbar-nav navi">

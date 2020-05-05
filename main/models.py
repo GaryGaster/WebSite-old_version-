@@ -10,6 +10,7 @@ class Video(models.Model):
         (2, 'NETFLIX'),
         (3, 'AMAZONPRIME'),
         (4, 'YOUTUBE'),
+        (5, 'CDA'),
     }
 
     title = models.CharField(max_length=128)

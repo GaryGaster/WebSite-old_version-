@@ -8,63 +8,59 @@ Seriale użytkownika
 {% block content %}
 <section>
     <h1 >Seriale dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
-  <br/>
-  
-  <article class="video">
-    {% for serial in series %}
-    <div class="card">
-        {% ifequal serial.image 'video-default.jpg' %}
+    <br/>
+
+    <article class="video">
+        {% for serial in series %}
+        <div class="card">
+            {% ifequal serial.image 'video-default.jpg' %}
             <a href="{% url 'serial-detail' serial.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
-        {% else %}
-            <a href="{% url 'serial-detail' serial.id %}"><img src="{{serial.image.url}}" class="card-img" alt="Obrazek"></a>           
-        {% endifequal %}
-        <div class="card-body">
-            <h5 class="card-title">{{ serial.title_year}}</h5></a>
-            <p class="watch">Oglądaj w: </p>
-            <div id="votes-icon">
-                <form action="{% url 'serial-upvote' serial.id%}" method="post">
-                    {% csrf_token %}
-                    {% if serial.votes_total == 0 %}
-                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="far fa fa-heart"></i></button>
-  
-                    {% elif user in serial.voters.all %}
-                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa fa-heart"> {{ serial.votes_total }}</i></button>
-                    {% else %}
-                    <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa fa-heart"> {{ serial.votes_total }}</i></button>
-                    {% endif%}
-                </form>
-            </div>
-            <div id='icon'>
-                {% for choice in serial.platforms %}
-                {% if choice == "1" %}
+            {% else %}
+            <a href="{% url 'serial-detail' serial.id %}"><img src="{{serial.image.url}}" class="card-img" alt="Obrazek"></a>
+            {% endifequal %}
+            <div class="card-body">
+                <h5 class="card-title">{{ serial.title_year}}</h5></a>
+                <p class="watch">Oglądaj w: </p>
+                <div id="votes-icon">
+                    <form action="{% url 'serial-upvote' serial.id%}" method="post">
+                        {% csrf_token %}
+                        {% if serial.votes_total == 0 %}
+                        <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="far fa fa-heart"></i></button>
+
+                        {% elif user in serial.voters.all %}
+                        <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa fa-heart"> {{ serial.votes_total }}</i></button>
+                        {% else %}
+                        <button type="submit" name="serial_id" value="{{ serial.id }}" class="btn"><i class="fas fa fa-heart"> {{ serial.votes_total }}</i></button>
+                        {% endif%}
+                    </form>
+                </div>
+                <div id='icon'>
+                    {% for choice in serial.platforms %}
+                    {% if choice == "1" %}
                     <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
-                        {% elif choice == "2" %}
+                    {% elif choice == "2" %}
                     <a href="https://www.netflix.com/"><img src="{% static 'platforms/netflix.png' %}" class="img-platform" alt="Netflix"></a>
-                        {% elif choice == "3" %}
+                    {% elif choice == "3" %}
                     <a href="https://www.primevideo.com/"><img src="{% static 'platforms/amazon_v.jpeg' %}" class="img-platform" alt="Amazon"></a>
-                        {% elif choice == "4" %}
+                    {% elif choice == "4" %}
                     <a href="https://www.youtube.com/"><img src="{% static 'platforms/youtube.png' %}" class="img-platform" alt="Youtube"></a>
-                {% endif %}
-                {% endfor %}
-  
+                    {% elif choice == "5" %}
+                    <a href="https://www.cda.pl/"><img src="{% static 'platforms/cda.jpeg' %}" class="img-platform" alt="CDA"></a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-  
-  
-  
+            <div class="edit-delete">
+                <a id="add" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}} {{  serial.timestamp_pretty }}</small></a>
+                {% if serial.user == user %}
+                <a href="{% url 'serial-update' serial.id %}"><i class="fas fa-edit"> </i></a>
+                <a href="{% url 'serial-delete' serial.id %}"><i class="fas fa-trash-alt"> </i></a>
+                {% endif %}
+            </div>
         </div>
-  
-  
-    <div class="edit-delete">
-        <a id="add" href="{% url 'user-series' serial.user.username %}"><small class="text-muted">Dodał {{serial.user}} {{  serial.timestamp_pretty }}</small></a>
-        {% if serial.user == user %}
-        <a href="{% url 'serial-update' serial.id %}"><i class="fas fa-edit"> </i></a>
-        <a href="{% url 'serial-delete' serial.id %}"><i class="fas fa-trash-alt"> </i></a>
-        {% endif %}
-    </div>
-  </div>
-  
-  {% endfor %}
-  </article>
-  
-  </section>
+
+        {% endfor %}
+    </article>
+
+</section>
 {% endblock %}

@@ -1,6 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+from django.db import models
 
 
 class Profile(models.Model):
@@ -12,4 +11,3 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        

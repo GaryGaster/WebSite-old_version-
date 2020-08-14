@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}
-Xvideos użytkownika
-
+Anime
 {% endblock %}
 {% block content %}
 <section>
-    <h1 >Filmy dodane przez {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    <div class="img-anime">
+        <img src="{% static 'main_pics/anime2.png' %}" alt="logo">
+    </div>
+    <div class="create">
+        <a href="{% url 'anime-create' %}"><button type="button" class="btn btn-success btn-sm">Dodaj <i class="fas fa-plus-circle"></i></button> </a>
+    </div>
     <div class="pagination">
         {% if is_paginated %}
 
@@ -31,31 +34,31 @@ Xvideos użytkownika
         {% endif %}
     </div>
     <article class="video">
-        {% for xvideo in xvideos %}
+        {% for anime in anime %}
         <div class="card">
-            {% ifequal xvideo.image 'video-default.jpg' %}
-            <a href="{% url 'xvideo-detail' xvideo.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
+            {% ifequal anime.image 'video-default.jpg' %}
+            <a href="{% url 'anime-detail' anime.id %}"><img src="{% static 'video-default2.jpg' %}" class="card-img"  alt="Default"></a>
             {% else %}
-            <a href="{% url 'xvideo-detail' xvideo.id %}"><img src="{{xvideo.image.url}}" class="card-img" alt="Obrazek"></a>
+            <a href="{% url 'anime-detail' anime.id %}"><img src="{{anime.image.url}}" class="card-img" alt="Obrazek"></a>
             {% endifequal %}
             <div class="card-body">
-                <h5 class="card-title">{{ xvideo.title_year}}</h5></a>
+                <h5 class="card-title">{{ anime.title_year}}</h5>
                 <p class="watch">Oglądaj w: </p>
                 <div id="votes-icon">
-                    <form action="{% url 'xvideo-upvote' xvideo.id%}" method="post">
+                    <form action="{% url 'anime-upvote' anime.id%}" method="post">
                         {% csrf_token %}
-                        {% if xvideo.votes_total == 0 %}
-                        <button type="submit" name="xvideo_id" value="{{ xvideo.id }}" class="btn"><i class="far fa fa-heart"></i></button>
+                        {% if anime.votes_total == 0 %}
+                        <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="far fa fa-heart"></i></button>
 
-                        {% elif user in xvideo.voters.all %}
-                        <button type="submit" name="xvideo_id" value="{{ xvideo.id }}" class="btn"><i class="fas fa fa-heart"> {{ xvideo.votes_total }}</i></button>
+                        {% elif user in anime.voters.all %}
+                        <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa fa-heart"> {{ anime.votes_total }}</i></button>
                         {% else %}
-                        <button type="submit" name="xvideo_id" value="{{ xvideo.id }}" class="btn"><i class="fas fa fa-heart"> {{ xvideo.votes_total }}</i></button>
+                        <button type="submit" name="anime_id" value="{{ anime.id }}" class="btn"><i class="fas fa fa-heart"> {{ anime.votes_total }}</i></button>
                         {% endif%}
                     </form>
                 </div>
                 <div id='icon'>
-                    {% for choice in xvideo.platforms %}
+                    {% for choice in anime.platforms %}
                     {% if choice == "1" %}
                     <a href="https://www.hbogo.pl/"><img src="{% static 'platforms/hbogo.png' %}" class="img-platform" alt="HBOGO"></a>
                     {% elif choice == "2" %}
@@ -71,10 +74,10 @@ Xvideos użytkownika
                 </div>
             </div>
             <div class="edit-delete">
-                <a id="add" href="{% url 'user-xvideos' xvideo.user.username %}"><small class="text-muted">Dodał {{xvideo.user}} {{  xvideo.timestamp_pretty }}</small></a>
-                {% if xvideo.user == user %}
-                <a href="{% url 'xvideo-update' xvideo.id %}"><i class="fas fa-edit"> </i></a>
-                <a href="{% url 'xvideo-delete' xvideo.id %}"><i class="fas fa-trash-alt"> </i></a>
+                <a id="add" href="{% url 'user-anime' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>
+                {% if anime.user == user %}
+                <a href="{% url 'anime-update' anime.id %}"><i class="fas fa-edit"> </i></a>
+                <a href="{% url 'anime-delete' anime.id %}"><i class="fas fa-trash-alt"> </i></a>
                 {% endif %}
             </div>
         </div>
@@ -103,4 +106,5 @@ Xvideos użytkownika
         {% endif %}
     </div>
 </section>
+
 {% endblock %}

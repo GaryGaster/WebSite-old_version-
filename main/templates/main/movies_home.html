@@ -44,7 +44,7 @@ Filmy
             <a href="{% url 'movie-detail' movie.id %}"><img src="{{movie.image.url}}" class="card-img"  alt="Obrazek"></a>
             {% endifequal %}
             <div class="card-body">
-                <h5 class="card-title">{{ movie.title_year}}</h5></a>
+                <h5 class="card-title">{{ movie.title_year}}</h5>
                 <p class="watch">Oglądaj w: </p>
                 <div id="votes-icon">
                     <form action="{% url 'movie-upvote' movie.id%}" method="post">

@@ -15,7 +15,7 @@ Anime-deatial
 
     <div class="detail-card-body">
         <div class="detail-add">
-            <a id="add" href="{% url 'user-animes' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>
+            <a id="add" href="{% url 'user-anime' anime.user.username %}"><small class="text-muted">Dodał {{anime.user}} {{  anime.timestamp_pretty }}</small></a>
         </div>
         <h5 class="detail-title">{{ anime.title_year}}</h5>
         <div id="detail-edit-delete">

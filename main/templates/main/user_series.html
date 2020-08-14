@@ -39,7 +39,7 @@ Seriale użytkownika
             <a href="{% url 'serial-detail' serial.id %}"><img src="{{serial.image.url}}" class="card-img" alt="Obrazek"></a>
             {% endifequal %}
             <div class="card-body">
-                <h5 class="card-title">{{ serial.title_year}}</h5></a>
+                <h5 class="card-title">{{ serial.title_year}}</h5>
                 <p class="watch">Oglądaj w: </p>
                 <div id="votes-icon">
                     <form action="{% url 'serial-upvote' serial.id%}" method="post">

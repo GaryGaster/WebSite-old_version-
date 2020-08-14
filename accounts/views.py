@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth import  authenticate, login
-
+from django.contrib.auth import authenticate, login
 
 
 class SignUp(generic.CreateView):
@@ -20,10 +19,6 @@ class SignUp(generic.CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return view
-
-
-
-
 
 
 @login_required
@@ -43,7 +38,6 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-
 
     context = {
         'u_form': u_form,

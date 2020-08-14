@@ -22,7 +22,7 @@ class Video(models.Model):
     votes_total = models.IntegerField(default=0)
     voters = models.ManyToManyField(User, related_name='video_voters')
     image = models.ImageField(null=True, blank=True, default='video-default.jpg', upload_to='media/')
-    url = models.URLField(blank=True,  default='')
+    url = models.URLField(blank=True, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -40,6 +40,7 @@ class Video(models.Model):
     class Meta:
         abstract = True
 
+
 class Movie(Video):
     voters = models.ManyToManyField(User, related_name='movie_voters')
 
@@ -53,15 +54,9 @@ class Serial(Video):
     def get_absolute_url(self):
         return reverse('serial-detail', kwargs={'pk': self.pk})
 
+
 class Anime(Video):
     voters = models.ManyToManyField(User, related_name='anime_voters')
 
     def get_absolute_url(self):
         return reverse('anime-detail', kwargs={'pk': self.pk})
-
-
-class Xvideo(Video):
-    voters = models.ManyToManyField(User, related_name='xvideo_voters')
-
-    def get_absolute_url(self):
-        return reverse('xvideo-detail', kwargs={'pk': self.pk})
